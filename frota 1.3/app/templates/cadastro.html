@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}Início - Logistica Facil{% endblock %}
+
+{% block content %}
+
+    <body style="background-color: #f4f4f4; font-family: Arial, sans-serif; text-align: center; padding-top: 50px;">
+    <h2>Criar Novo Usuário</h2>
+    
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }} 
+        <br>
+        <button type="submit" style="background-color: #28a745; color: white; padding: 5px 15px; border: none; cursor: pointer;">Salvar Usuário</button>
+    </form>
+
+    <br>
+    <a href="{% url 'login' %}">Voltar para o Login</a>
+</body>
+
+{% endblock %}
