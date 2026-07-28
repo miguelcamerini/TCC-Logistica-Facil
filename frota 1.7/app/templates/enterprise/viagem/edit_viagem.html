@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Editar Viagem - Logística Fácil{% endblock %}
+
+{% block content %}
+<div class="container-formulario">
+    <h2 class="titulo-pagina">Editando Viagem <!-- #{{ viagem.id }} --> ({{ viagem.contratante }})</h2>
+    <p class="subtitulo-pagina">Atualize os status operacionais, KMs ou preencha as datas de quitação.</p>
+    <hr><br>
+
+    <form method="POST" class="formulario-padrao">
+        {% csrf_token %}
+        <div class="grid-formulario">
+            {% for field in form %}
+                <div class="grupo-campo">
+                    <label class="rotulo-campo">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <span class="erro-campo">{{ field.errors.0 }}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <br>
+        <div class="container-botoes-form">
+            <a href="{% url 'lista_viagem' %}" style="text-decoration: none;">
+                <button type="button" class="btn-cancelar">Cancelar</button>
+            </a>
+            <button type="submit" class="btn-salvar-edit">Salvar Alterações</button>
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}
