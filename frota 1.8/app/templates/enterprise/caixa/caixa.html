@@ -1,0 +1,105 @@
+{% extends 'base.html' %}
+
+{% block title %}Fluxo de Caixa - Logística Fácil{% endblock %}
+
+{% block content %}
+<div style="max-width: 1100px; margin: 0 auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="margin: 0; color: #333;">Fluxo de Caixa / Gastos</h2>
+        <a href="{% url 'add_caixa' %}" style="text-decoration: none;">
+            <button style="background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
+                + Novo Lançamento
+            </button>
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div style="padding: 10px; margin-bottom: 15px; border-radius: 4px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <hr><br>
+
+    <!-- CARD RESUMO FINANCEIRO -->
+    <div class="cards-resumo">
+        <div class="card card-despesa">
+            <h4>Total de Gastos Registrados</h4>
+            <p>R$ {{ total_gasto|floatformat:2 }}</p>
+        </div>
+        <div class="card">
+            <h4>Total de Lançamentos</h4>
+            <p>{{ gastos.count }}</p>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- TABELA DE LANÇAMENTOS -->
+    <h3>Histórico de Lançamentos</h3>
+    {% if gastos %}
+        <table class="tabela-frota">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Centro de Custo</th>
+                    <th>Descrição</th>
+                    <th>Valor Gasto</th>
+                    <th class="coluna-acoes">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for gasto in gastos %}
+                   <tr class="{% cycle 'linha-branca' 'linha-cinza' %}">
+                        <td class="texto-negrito">{{ gasto.data|date:"d/m/Y" }}</td>
+                        <td><span class="badge-centro">{{ gasto.centro_de_custo }}</span></td>
+                        <td>{{ gasto.descricao }}</td>
+                        <td class="texto-negrito" style="color: #dc3545;">R$ {{ gasto.valor_gasto }}</td>
+                        <td>
+                            <div class="container-botoes">
+                                <a href="{% url 'edit_caixa' gasto.id %}" style="text-decoration: none;">
+                                    <button type="button" class="btn-editar">Editar</button>
+                                </a>
+                                <form action="{% url 'excluir_caixa' gasto.id %}" method="POST" style="margin: 0;" onsubmit="return confirm('Tem certeza que deseja excluir este lançamento do caixa?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-excluir">Excluir</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="aviso-vazio">Nenhum lançamento registrado no fluxo de caixa até o momento.</div>
+    {% endif %}
+
+    <br><br>
+    <a href="{% url 'home' %}" style="color: #666; text-decoration: none;">← Voltar ao Início</a>
+</div>
+
+<style>
+    .cards-resumo { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-bottom: 25px; }
+    .card { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 6px; padding: 15px; text-align: center; }
+    .card h4 { margin: 0; color: #6c757d; font-size: 14px; }
+    .card p { margin: 5px 0 0 0; font-size: 24px; font-weight: bold; color: #333; }
+    .card-despesa p { color: #dc3545; }
+
+    .tabela-frota { width: 100%; border-collapse: collapse; text-align: left; margin-bottom: 40px; }
+    .tabela-frota thead tr { background-color: #007bff; color: white; }
+    .tabela-frota th, .tabela-frota td { padding: 12px; border: 1px solid #ddd; font-size: 14px; }
+    .coluna-acoes { text-align: center; width: 180px; }
+    .linha-branca { background-color: #ffffff; }
+    .linha-cinza { background-color: #f9f9f9; }
+    .texto-negrito { font-weight: bold; }
+    .aviso-vazio { text-align: center; padding: 20px; color: #666; border: 2px dashed #ddd; border-radius: 6px; margin-bottom: 40px; }
+    .container-botoes { display: flex; gap: 8px; justify-content: center; }
+    .btn-editar { background-color: #ffc107; color: #212529; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 13px; }
+    .btn-excluir { background-color: #dc3545; color: white; padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 13px; }
+    
+    .badge-centro { background-color: #e9ecef; color: #495057; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 12px; }
+</style>
+{% endblock %}
