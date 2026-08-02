@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title %}Meus Funcionários - Logística Fácil{% endblock %}
+
+{% block content %}
+<div style="max-width: 1100px; margin: 0 auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2 style="margin: 0;">Gerenciamento de Funcionários</h2>
+        
+        <a href="{% url 'add_funcionario' %}" style="text-decoration: none;">
+            <button style="background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold;">
+                + Adicionar Funcionário
+            </button>
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div style="padding: 10px; margin-bottom: 15px; border-radius: 4px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <hr>
+    <br>
+
+    <h3>Funcionários Contratados</h3>
+    {% if contratados %}
+        <table class="tabela-frota">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Função</th>
+                    <th>CPF</th>
+                    <th>CNH</th>
+                    <th class="coluna-acoes">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for funcionario in contratados %}
+                   <tr class="{% cycle 'linha-branca' 'linha-cinza' %}">
+                        <td class="texto-negrito">{{ funcionario.nome }}</td>
+                        <td>{{ funcionario.funcao }}</td>
+                        <td>{{ funcionario.cpf }}</td>
+                        <td>
+                            {% if funcionario.cnh %}
+                                {{ funcionario.cnh }}
+                            {% else %}
+                                <span class="texto-apagado">Não possui</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="container-botoes">
+                                <a href="{% url 'editar_funcionario' funcionario.id %}" style="text-decoration: none;">
+                                    <button type="button" class="btn-editar">Editar</button>
+                                </a>
+                                <form action="{% url 'excluir_funcionario' funcionario.id %}" method="POST" style="margin: 0;" onsubmit="return confirm('Tem certeza que deseja excluir permanentemente o funcionário {{ funcionario.nome }}?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-excluir">Excluir</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="aviso-vazio">
+            Nenhum funcionário com status "Contratado".
+        </div>
+    {% endif %}
+
+    <h3 style="color: #6c757d; margin-top: 30px;">Funcionários Neutros</h3>
+    {% if neutros %}
+        <table class="tabela-frota tabela-neutros">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Função</th>
+                    <th>CPF</th>
+                    <th>CNH</th>
+                    <th class="coluna-acoes">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for funcionario in neutros %}
+                    <tr class="{% cycle 'linha-branca' 'linha-cinza' %}">
+                        <td class="texto-negrito">{{ funcionario.nome }}</td>
+                        <td>{{ funcionario.funcao }}</td>
+                        <td>{{ funcionario.cpf }}</td>
+                        <td>
+                            {% if funcionario.cnh %}
+                                {{ funcionario.cnh }}
+                            {% else %}
+                                <span class="texto-apagado">Não possui</span>
+                            {% endif %}
+                        </td>
+                        <td>
+                            <div class="container-botoes">
+                                <a href="{% url 'editar_funcionario' funcionario.id %}" style="text-decoration: none;">
+                                    <button type="button" class="btn-editar">Editar</button>
+                                </a>
+                                <form action="{% url 'excluir_funcionario' funcionario.id %}" method="POST" style="margin: 0;" onsubmit="return confirm('Tem certeza que deseja excluir permanentemente o funcionário {{ funcionario.nome }}?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-excluir">Excluir</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="aviso-vazio">
+            Nenhum funcionário com status "Neutro".
+        </div>
+    {% endif %}
+
+    {% if outros %}
+        <h3 style="color: #e0a800; margin-top: 30px;">Outros Status / Sem Status Definido</h3>
+        <table class="tabela-frota">
+            <tbody>
+                {% for funcionario in outros %}
+                <tr>
+                    <td>{{ funcionario.nome }} ({{ funcionario.status|default:"Sem status" }})</td>
+                    <td style="text-align: center;">
+                        <a href="{% url 'editar_funcionario' funcionario.id %}" class="btn-editar" style="text-decoration: none; padding: 6px 12px; display: inline-block;">Editar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <br><br>
+    <a href="{% url 'home' %}" style="color: #666; text-decoration: none;">← Voltar ao Início</a>
+</div>
+
+
+{% endblock %}
