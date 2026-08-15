@@ -1,0 +1,202 @@
+{% extends 'base.html' %}
+
+{% block title %}Fluxo de Caixa - Logística Fácil{% endblock %}
+
+{% block content %}
+<div class="container-caixa">
+    
+    <!-- CABEÇALHO E BOTÕES DE AÇÃO -->
+    <div class="header-caixa">
+        <h2>Fluxo de Caixa / Financeiro</h2>
+        <div style="display: flex; gap: 10px;">
+            <a href="{% url 'add_despesa_caixa' %}" style="text-decoration: none;">
+                <button type="button" class="btn-novo-gasto">
+                    - Adicionar Despesa
+                </button>
+            </a>
+            <a href="{% url 'add_entrada_caixa' %}" style="text-decoration: none;">
+                <button type="button" class="btn-nova-entrada">
+                    + Adicionar Entrada Externa
+                </button>
+            </a>
+        </div>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alerta-sucesso">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <hr><br>
+
+    <!-- BARRA DE FILTROS (DATA + VEÍCULO) -->
+    <form method="GET" class="container-filtro">
+        <div class="grupo-filtro">
+            <label>Data Inicial:</label>
+            <input type="date" name="data_inicio" value="{{ data_inicio }}">
+        </div>
+        <div class="grupo-filtro">
+            <label>Data Final:</label>
+            <input type="date" name="data_fim" value="{{ data_fim }}">
+        </div>
+        <div class="grupo-filtro">
+            <label>Veículo / Centro de Custo:</label>
+            <select name="veiculo">
+                <option value="">-- Todos os Veículos --</option>
+                {% for v in veiculos_usuario %}
+                    <option value="{{ v.id }}" {% if veiculo_selecionado == v.id %}selected{% endif %}>
+                        {{ v.nome_fantasia }} ({{ v.placa }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="botoes-filtro">
+            <button type="submit" class="btn-filtrar">Filtrar</button>
+            {% if data_inicio or data_fim or veiculo_selecionado %}
+                <a href="{% url 'lista_caixa' %}" class="btn-limpar">Limpar</a>
+            {% endif %}
+        </div>
+    </form>
+
+    <br>
+
+    <!-- CARDS DE RESUMO FINANCEIRO -->
+    <div class="cards-resumo">
+        <div class="card card-entradas">
+            <h4>Total Entradas (Fretes/Receitas)</h4>
+            <p>+ R$ {{ total_entradas|floatformat:2 }}</p>
+        </div>
+        <div class="card card-saidas">
+            <h4>Total Saídas (Despesas/Gastos)</h4>
+            <p>- R$ {{ total_saidas|floatformat:2 }}</p>
+        </div>
+        <div class="card card-saldo">
+            <h4>Valor em Conta (Saldo Líquido)</h4>
+            <p class="{% if saldo_conta < 0 %}texto-vermelho{% else %}texto-azul{% endif %}">
+                R$ {{ saldo_conta|floatformat:2 }}
+            </p>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- TABELA DE LANÇAMENTOS DO CAIXA -->
+    <h3>Lançamentos do Caixa</h3>
+    {% if gastos %}
+        <table class="tabela-frota">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Tipo</th>
+                    <th>Veículo</th>
+                    <th>MIC</th>
+                    <th>NF</th>
+                    <th>Descrição</th>
+                    <th>Valor (R$)</th>
+                    <th class="coluna-acoes">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for gasto in gastos %}
+                   <tr class="{% cycle 'linha-branca' 'linha-cinza' %}">
+                        <td class="texto-negrito">{{ gasto.data|date:"d/m/Y" }}</td>
+                        <td>
+                            {% if gasto.tipo == 'despesa' %}
+                                <span class="badge-tipo badge-despesa">Gasto</span>
+                            {% elif gasto.tipo == 'adiantamento' %}
+                                <span class="badge-tipo badge-adiantamento">Adiantamento</span>
+                            {% elif gasto.tipo == 'quitacao' %}
+                                <span class="badge-tipo badge-quitacao">Quitação</span>
+                            {% else %}
+                                <span class="badge-tipo badge-receita">Entrada Extra</span>
+                            {% endif %}
+                        </td>
+                        <td><span class="badge-centro">{{ gasto.centro_de_custo }}</span></td>
+                        <td class="texto-negrito">{{ gasto.mic_exibicao }}</td>
+                        <td class="texto-negrito">{{ gasto.nota_fiscal_exibicao }}</td>
+                        <td>{{ gasto.descricao }}</td>
+                        
+                        <!-- EXIBIÇÃO DE VALOR POSITIVO OU NEGATIVO -->
+                        <td class="texto-negrito" style="font-size: 15px;">
+                            {% if gasto.tipo == 'despesa' %}
+                                <span style="color: #dc3545;">- R$ {{ gasto.valor_saida }}</span>
+                            {% else %}
+                                <span style="color: #28a745;">+ R$ {{ gasto.valor_entrada }}</span>
+                            {% endif %}
+                        </td>
+                        
+                        <td>
+                            <div class="container-botoes">
+                                <a href="{% url 'edit_caixa' gasto.id %}" style="text-decoration: none;">
+                                    <button type="button" class="btn-editar">Editar</button>
+                                </a>
+                                <form action="{% url 'excluir_caixa' gasto.id %}" method="POST" style="margin: 0;" onsubmit="return confirm('Tem certeza que deseja excluir este lançamento do caixa?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-excluir">Excluir</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="aviso-vazio">Nenhum lançamento encontrado para os filtros selecionados.</div>
+    {% endif %}
+
+    <br><br>
+    <a href="{% url 'home' %}" style="color: #666; text-decoration: none;">← Voltar ao Início</a>
+</div>
+
+<style>
+    .container-caixa { max-width: 1100px; margin: 0 auto; background: #ffffff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    .header-caixa { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+    .header-caixa h2 { margin: 0; color: #333333; }
+    .btn-novo-gasto { background-color: #dc3545; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 13px; transition: background 0.2s; }
+    .btn-novo-gasto:hover { background-color: #c82333; }
+    .btn-nova-entrada { background-color: #28a745; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 13px; transition: background 0.2s; }
+    .btn-nova-entrada:hover { background-color: #218838; }
+    .alerta-sucesso { padding: 10px; margin-bottom: 15px; border-radius: 4px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+    .container-filtro { display: flex; gap: 15px; align-items: flex-end; background: #f8f9fa; padding: 15px; border-radius: 6px; border: 1px solid #e9ecef; flex-wrap: wrap; }
+    .grupo-filtro { display: flex; flex-direction: column; gap: 5px; }
+    .grupo-filtro label { font-size: 13px; font-weight: bold; color: #495057; }
+    .grupo-filtro input, .grupo-filtro select { padding: 8px; border: 1px solid #ced4da; border-radius: 4px; font-size: 13px; }
+    .botoes-filtro { display: flex; gap: 8px; }
+    .btn-filtrar { background-color: #007bff; color: white; border: none; padding: 9px 15px; border-radius: 4px; font-weight: bold; cursor: pointer; }
+    .btn-limpar { background-color: #6c757d; color: white; text-decoration: none; padding: 9px 15px; border-radius: 4px; font-weight: bold; font-size: 13px; display: inline-block; }
+    .cards-resumo { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; }
+    .card { border-radius: 6px; padding: 15px; text-align: center; border: 1px solid #e9ecef; }
+    .card h4 { margin: 0; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .card p { margin: 8px 0 0 0; font-size: 22px; font-weight: bold; }
+    .card-entradas { background-color: #e8f5e9; border-color: #c8e6c9; }
+    .card-entradas h4 { color: #2e7d32; }
+    .card-entradas p { color: #28a745; }
+    .card-saidas { background-color: #ffebee; border-color: #ffcdd2; }
+    .card-saidas h4 { color: #c62828; }
+    .card-saidas p { color: #dc3545; }
+    .card-saldo { background-color: #e3f2fd; border-color: #bbdefb; }
+    .card-saldo h4 { color: #1565c0; }
+    .texto-azul { color: #007bff; }
+    .texto-vermelho { color: #dc3545; }
+    .tabela-frota { width: 100%; border-collapse: collapse; text-align: left; margin-bottom: 40px; }
+    .tabela-frota thead tr { background-color: #007bff; color: white; }
+    .tabela-frota th, .tabela-frota td { padding: 12px; border: 1px solid #ddd; font-size: 13px; }
+    .coluna-acoes { text-align: center; width: 150px; }
+    .linha-branca { background-color: #ffffff; }
+    .linha-cinza { background-color: #f9f9f9; }
+    .texto-negrito { font-weight: bold; }
+    .aviso-vazio { text-align: center; padding: 20px; color: #666; border: 2px dashed #ddd; border-radius: 6px; margin-bottom: 40px; }
+    .container-botoes { display: flex; gap: 8px; justify-content: center; }
+    .btn-editar { background-color: #ffc107; color: #212529; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; }
+    .btn-excluir { background-color: #dc3545; color: white; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 12px; }
+    .badge-centro { background-color: #e9ecef; color: #495057; padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 11px; }
+    .badge-tipo { padding: 4px 8px; border-radius: 4px; font-weight: bold; font-size: 11px; display: inline-block; }
+    .badge-despesa { background-color: #f8d7da; color: #721c24; }
+    .badge-adiantamento { background-color: #d1ecf1; color: #0c5460; }
+    .badge-quitacao { background-color: #d4edda; color: #155724; }
+    .badge-receita { background-color: #c3e6cb; color: #155724; }
+</style>
+{% endblock %}

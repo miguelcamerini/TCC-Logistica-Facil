@@ -1,0 +1,3 @@
+Viagens sao adicionadas ao caixa
+Viagens sao adicionadas ao caixa, nota fiscal aparece, o caixa tem valor adiantamento e quitacao com data e limitador, e algumas outras alteracoes.
+Analisar a implementacao de um sistema de media controle de abastecidas por viagem.
