@@ -1,0 +1,2 @@
+Adian e quit interliga &integridade de excludes
+Adianamento e quitacao interligados entre viagem e caixa, motorista e veiculoem viagem nao e apagado, motorista e veiculo aparecem listados por tipo
