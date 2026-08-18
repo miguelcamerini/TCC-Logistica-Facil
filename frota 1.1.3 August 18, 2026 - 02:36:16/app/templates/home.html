@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+
+{% block title %}Painel Resumo - Logística Fácil{% endblock %}
+
+{% block content %}
+
+<!-- CSS PURINLINE EXCLUSIVO DA TELA HOME -->
+<style>
+    /* Container Principal */
+    .container-home {
+        width: 100%;
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 10px 0;
+    }
+
+    /* Grid dos 4 Quadros */
+    .grid_resumos-home {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    /* Card dos Quadros */
+    .card_resumo-home {
+        background-color: #ffffff;
+        border-radius: 8px;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 220px;
+    }
+
+    /* Cabeçalho do Card */
+    .cabecalho_card-home {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #f4f6f9;
+        padding-bottom: 10px;
+        margin-bottom: 12px;
+    }
+
+    .titulo_card-home {
+        font-size: 1.1rem;
+        color: #1a1a1a;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .link_ver_mais-home {
+        color: #007bff;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: bold;
+        transition: color 0.2s ease;
+    }
+
+    .link_ver_mais-home:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+    /* Listas Internas Compactas */
+    .lista_resumo-home {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .item_resumo-home {
+        padding: 8px 0;
+        border-bottom: 1px dashed #e9ecef;
+        font-size: 0.9rem;
+        color: #333333;
+    }
+
+    .item_resumo-home:last-child {
+        border-bottom: none;
+    }
+
+    .item_titulo-home {
+        font-weight: bold;
+        display: block;
+    }
+
+    .item_subtexto-home {
+        font-size: 0.8rem;
+        color: #666666;
+        margin-top: 2px;
+    }
+
+    .reticencias_mais-home {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #007bff;
+        text-align: center;
+        margin-top: 5px;
+        line-height: 1;
+    }
+
+    .texto_vazio-home {
+        font-size: 0.88rem;
+        color: #888888;
+        font-style: italic;
+        margin: 15px 0;
+    }
+
+    /* Bloco do Caixa */
+    .info_data_caixa-home {
+        font-size: 0.88rem;
+        color: #555555;
+        margin-bottom: 15px;
+    }
+
+    .box_valor_censurado-home {
+        background-color: #f8f9fa;
+        padding: 12px 15px;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .rotulo_saldo-home {
+        font-size: 0.8rem;
+        color: #666666;
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    .conteudo_valor-home {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 1.25rem;
+        font-weight: bold;
+    }
+
+    .texto_valor_oculto-home {
+        color: #666666;
+        letter-spacing: 2px;
+    }
+
+    .texto_valor_real-home {
+        color: #28a745;
+    }
+
+    .desativado-home {
+        display: none !important;
+    }
+
+    .btn_olho-home {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 2px 6px;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn_olho-home:hover {
+        background-color: #e2e8f0;
+    }
+
+    /* Responsividade para Telas Menores */
+    @media (max-width: 850px) {
+        .grid_resumos-home {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+
+<div class="container-home">
+
+    <!-- GRID DOS 4 QUADROS COMPACTOS -->
+    <div class="grid_resumos-home">
+
+        <!-- QUADRO 1: VIAGENS EM ANDAMENTO -->
+        <div class="card_resumo-home">
+            <div class="cabecalho_card-home">
+                <h3 class="titulo_card-home">🗺️ Viagens em Andamento</h3>
+                <a href="{% url 'lista_viagem' %}" class="link_ver_mais-home" title="Ver todas as viagens">Acessar Tela →</a>
+            </div>
+
+            {% if viagens_andamento %}
+                <ul class="lista_resumo-home">
+                    {% for v in viagens_andamento %}
+                        <li class="item_resumo-home">
+                            <strong class="item_titulo-home">{{ v.local_inicio }} x {{ v.local_final }}</strong>
+                            <div class="item_subtexto-home">
+                                Motorista: {{ v.motorista.nome }} | Veículo: {{ v.veiculo_1.placa }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if tem_mais_viagens %}
+                    <div class="reticencias_mais-home">...</div>
+                {% endif %}
+            {% else %}
+                <p class="texto_vazio-home">Nenhuma viagem em andamento no momento.</p>
+            {% endif %}
+        </div>
+
+        <!-- QUADRO 2: FLUXO DE CAIXA (CENSURADO) -->
+        <div class="card_resumo-home">
+            <div class="cabecalho_card-home">
+                <h3 class="titulo_card-home">💰 Fluxo de Caixa</h3>
+                <a href="{% url 'lista_caixa' %}" class="link_ver_mais-home" title="Acessar caixa completo">Acessar Tela →</a>
+            </div>
+
+            <p class="info_data_caixa-home">
+                <strong>Última movimentação:</strong> 
+                {% if ultima_data_caixa %}
+                    {{ ultima_data_caixa|date:"d/m/Y" }}
+                {% else %}
+                    Sem registros
+                {% endif %}
+            </p>
+
+            <div class="box_valor_censurado-home">
+                <span class="rotulo_saldo-home">Saldo Atual:</span>
+                <div class="conteudo_valor-home">
+                    <span id="valorCaixaHome" class="texto_valor_oculto-home">R$ *****</span>
+                    <span id="valorRealCaixaHome" class="texto_valor_real-home desativado-home">
+                        R$ {{ saldo_caixa|floatformat:2 }}
+                    </span>
+                    <button type="button" id="btnToggleCaixaHome" class="btn_olho-home" title="Mostrar/Ocultar valor">
+                        👁️
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUADRO 3: FUNCIONÁRIOS ATIVOS -->
+        <div class="card_resumo-home">
+            <div class="cabecalho_card-home">
+                <h3 class="titulo_card-home">👨‍✈️ Funcionários Ativos</h3>
+                <a href="{% url 'lista_funcionario' %}" class="link_ver_mais-home" title="Ver todos os funcionários">Acessar Tela →</a>
+            </div>
+
+            {% if funcionarios_ativos %}
+                <ul class="lista_resumo-home">
+                    {% for func in funcionarios_ativos %}
+                        <li class="item_resumo-home">
+                            <strong class="item_titulo-home">{{ func.nome }}</strong>
+                            <div class="item_subtexto-home">
+                                Cargo: {{ func.cargo|default:"Motorista" }} | CNH: {{ func.cnh|default:"-" }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if tem_mais_funcionarios %}
+                    <div class="reticencias_mais-home">...</div>
+                {% endif %}
+            {% else %}
+                <p class="texto_vazio-home">Nenhum funcionário ativo cadastrado.</p>
+            {% endif %}
+        </div>
+
+        <!-- QUADRO 4: VEÍCULOS OPERACIONAIS -->
+        <div class="card_resumo-home">
+            <div class="cabecalho_card-home">
+                <h3 class="titulo_card-home">🚛 Veículos Operacionais</h3>
+                <a href="{% url 'lista_veiculos' %}" class="link_ver_mais-home" title="Ver todos os veículos">Acessar Tela →</a>
+            </div>
+
+            {% if veiculos_ativos %}
+                <ul class="lista_resumo-home">
+                    {% for v in veiculos_ativos %}
+                        <li class="item_resumo-home">
+                            <strong class="item_titulo-home">{{ v.nome_fantasia }}</strong>
+                            <div class="item_subtexto-home">
+                                Placa: {{ v.placa }} | Status: {{ v.get_status_display }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if tem_mais_veiculos %}
+                    <div class="reticencias_mais-home">...</div>
+                {% endif %}
+            {% else %}
+                <p class="texto_vazio-home">Nenhum veículo disponível ou em viagem.</p>
+            {% endif %}
+        </div>
+
+    </div>
+
+</div>
+
+<!-- JAVASCRIPT PURO INLINE -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var btnToggle = document.getElementById('btnToggleCaixaHome');
+        var vOculto = document.getElementById('valorCaixaHome');
+        var vReal = document.getElementById('valorRealCaixaHome');
+
+        if (btnToggle && vOculto && vReal) {
+            btnToggle.addEventListener('click', function() {
+                vOculto.classList.toggle('desativado-home');
+                vReal.classList.toggle('desativado-home');
+            });
+        }
+    });
+</script>
+
+{% endblock %}

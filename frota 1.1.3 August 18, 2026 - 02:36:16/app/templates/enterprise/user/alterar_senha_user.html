@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Alterar Senha - Logística Fácil{% endblock %}
+
+{% block content %}
+<div class="container-formulario">
+    <h2 class="titulo-pagina">Alterar Senha de Acesso</h2>
+    <p class="subtitulo-pagina">Sua nova senha deve ter no mínimo 8 caracteres.</p>
+    <hr><br>
+
+    <form method="POST" class="formulario-padrao">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="grupo-campo">
+                <label class="rotulo-campo">{{ field.label }}</label>
+                {{ field }}
+                {% if field.help_text %}
+                    <small class="texto-ajuda">{{ field.help_text }}</small>
+                {% endif %}
+                {% if field.errors %}
+                    <span class="erro-campo">{{ field.errors.0 }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <br>
+        <div class="container-botoes-form">
+            <a href="{% url 'perfil_user' %}" style="text-decoration: none;">
+                <button type="button" class="btn-cancelar">Cancelar</button>
+            </a>
+            <button type="submit" class="btn-salvar">Atualizar Senha</button>
+        </div>
+    </form>
+</div>
+
+
+{% endblock %}

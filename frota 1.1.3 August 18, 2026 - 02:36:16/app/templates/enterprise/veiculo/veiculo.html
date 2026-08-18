@@ -1,0 +1,151 @@
+{% extends 'base.html' %}
+
+{% block title %}Veículos - Logística Fácil{% endblock %}
+
+{% block content %}
+<div style="max-width: 1100px; margin: 0 auto; background: #ffffff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>Gerenciamento da Frota (Veículos)</h2>
+        <a href="{% url 'add_veiculo' %}" style="text-decoration: none;">
+            <button type="button" class="btn-novo">+ Cadastrar Veículo</button>
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alerta-sucesso" style="background-color: {% if message.tags == 'error' %}#f8d7da{% else %}#d4edda{% endif %}; color: {% if message.tags == 'error' %}#721c24{% else %}#155724{% endif %}; margin-bottom: 15px; padding: 10px; border-radius: 4px;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- TABELA 1: VEÍCULOS OPERACIONAIS (DISPONÍVEIS E EM VIAGEM) -->
+    <h3 style="color: #28a745;">Veículos Operacionais (Disponíveis / Em Viagem)</h3>
+    {% if operacionais %}
+        <table class="tabela-frota">
+            <thead>
+                <tr>
+                    <th>Nome Fantasia</th>
+                    <th>Placa</th>
+                    <th>Ano Fab/Mod</th>
+                    <th>Renavam</th>
+                    <th>Status</th>
+                    <th class="coluna-acoes">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for veiculo in operacionais %}
+                    <tr class="{% cycle 'linha-branca' 'linha-cinza' %}">
+                        <td class="texto-negrito">{{ veiculo.nome_fantasia }}</td>
+                        <td><span class="badge-placa">{{ veiculo.placa }}</span></td>
+                        <td>{{ veiculo.ano_fabricacao }}/{{ veiculo.ano_modelo }}</td>
+                        <td>{{ veiculo.renavam }}</td>
+                        <td>
+                            <span class="badge-status status-{{ veiculo.status }}">
+                                {{ veiculo.get_status_display }}
+                            </span>
+                        </td>
+                        <td>
+                            <div class="container-botoes">
+                                <a href="{% url 'editar_veiculo' veiculo.id %}"><button type="button" class="btn-editar">Editar</button></a>
+                                <form action="{% url 'excluir_veiculo' veiculo.id %}" method="POST" style="margin:0;" onsubmit="return confirm('Deseja realmente excluir este veículo?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-excluir">Excluir</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="aviso-vazio">Nenhum veículo disponível ou em viagem no momento.</div>
+    {% endif %}
+
+    <br><hr><br>
+
+    <!-- TABELA 2: VEÍCULOS EM MANUTENÇÃO -->
+    <h3 style="color: #ffc107;">Veículos Em Manutenção</h3>
+    {% if manutencao %}
+        <table class="tabela-frota">
+            <thead>
+                <tr>
+                    <th>Nome Fantasia</th>
+                    <th>Placa</th>
+                    <th>Ano Fab/Mod</th>
+                    <th>Renavam</th>
+                    <th>Status</th>
+                    <th class="coluna-acoes">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for veiculo in manutencao %}
+                    <tr class="{% cycle 'linha-branca' 'linha-cinza' %}">
+                        <td class="texto-negrito">{{ veiculo.nome_fantasia }}</td>
+                        <td><span class="badge-placa">{{ veiculo.placa }}</span></td>
+                        <td>{{ veiculo.ano_fabricacao }}/{{ veiculo.ano_modelo }}</td>
+                        <td>{{ veiculo.renavam }}</td>
+                        <td><span class="badge-status status-manutencao">Em Manutenção</span></td>
+                        <td>
+                            <div class="container-botoes">
+                                <a href="{% url 'editar_veiculo' veiculo.id %}"><button type="button" class="btn-editar">Editar</button></a>
+                                <form action="{% url 'excluir_veiculo' veiculo.id %}" method="POST" style="margin:0;" onsubmit="return confirm('Deseja realmente excluir este veículo?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-excluir">Excluir</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="aviso-vazio">Nenhum veículo em manutenção no momento.</div>
+    {% endif %}
+
+    <br><hr><br>
+
+    <!-- TABELA 3: VEÍCULOS INATIVOS / VENDIDOS -->
+    <h3 style="color: #6c757d;">Veículos Inativos / Vendidos</h3>
+    {% if inativos %}
+        <table class="tabela-frota">
+            <thead>
+                <tr>
+                    <th>Nome Fantasia</th>
+                    <th>Placa</th>
+                    <th>Ano Fab/Mod</th>
+                    <th>Renavam</th>
+                    <th>Status</th>
+                    <th class="coluna-acoes">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for veiculo in inativos %}
+                    <tr class="{% cycle 'linha-branca' 'linha-cinza' %}">
+                        <td class="texto-negrito">{{ veiculo.nome_fantasia }}</td>
+                        <td><span class="badge-placa">{{ veiculo.placa }}</span></td>
+                        <td>{{ veiculo.ano_fabricacao }}/{{ veiculo.ano_modelo }}</td>
+                        <td>{{ veiculo.renavam }}</td>
+                        <td><span class="badge-status status-vendido">Vendido</span></td>
+                        <td>
+                            <div class="container-botoes">
+                                <a href="{% url 'editar_veiculo' veiculo.id %}"><button type="button" class="btn-editar">Editar</button></a>
+                                <form action="{% url 'excluir_veiculo' veiculo.id %}" method="POST" style="margin:0;" onsubmit="return confirm('Deseja realmente excluir este veículo?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-excluir">Excluir</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="aviso-vazio">Nenhum veículo inativo ou vendido.</div>
+    {% endif %}
+
+    <br><br>
+    <a href="{% url 'home' %}" style="color: #666; text-decoration: none;">← Voltar ao Início</a>
+</div>
+{% endblock %}

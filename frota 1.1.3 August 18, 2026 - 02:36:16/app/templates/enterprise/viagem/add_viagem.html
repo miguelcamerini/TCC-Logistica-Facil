@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}Adicionar Viagem - Logística Fácil{% endblock %}
+
+{% block content %}
+<div class="container-formulario">
+    <h2 class="titulo-pagina">Registrar Nova Viagem</h2>
+    <p class="subtitulo-pagina">Insira os dados operacionais e financeiros do novo frete.</p>
+    <hr><br>
+
+    <form method="POST" class="formulario-padrao">
+        {% csrf_token %}
+        <div class="grid-formulario">
+            {% for field in form %}
+                <div class="grupo-campo">
+                    <label class="rotulo-campo">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <span class="erro-campo">{{ field.errors.0 }}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <br>
+        <div class="container-botoes-form">
+            <a href="{% url 'lista_viagem' %}" style="text-decoration: none;">
+                <button type="button" class="btn-cancelar">Cancelar</button>
+            </a>
+            <button type="submit" class="btn-salvar-add">Salvar Viagem</button>
+        </div>
+    </form>
+</div>
+
+<style>
+    .container-formulario { max-width: 850px; margin: 0 auto; background: white; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+    .titulo-pagina { margin-top: 0; color: #333; }
+    .subtitulo-pagina { color: #666; font-size: 14px; }
+    .formulario-padrao { display: flex; flex-direction: column; gap: 15px; }
+    .grid-formulario { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .grupo-campo { display: flex; flex-direction: column; gap: 5px; }
+    .rotulo-campo { font-weight: bold; color: #444; font-size: 14px; }
+    .formulario-padrao input, .formulario-padrao select, .formulario-padrao textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; box-sizing: border-box; }
+    .formulario-padrao textarea { grid-column: span 2; } /* Faz a descrição ocupar a linha inteira */
+    .erro-campo { color: #dc3545; font-size: 12px; }
+    .container-botoes-form { display: flex; gap: 10px; justify-content: flex-end; }
+    .btn-cancelar { background-color: #6c757d; color: white; padding: 10px 15px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+    .btn-salvar-add { background-color: #28a745; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+</style>
+{% endblock %}

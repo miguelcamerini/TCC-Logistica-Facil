@@ -1,0 +1,104 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Logística Fácil{% endblock %}</title>
+    <!-- Importação do CSS Global -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body class="corpo-base">
+
+    <!-- CABEÇALHO PRINCIPAL -->
+    <header class="cabecalho-base">
+        <div class="container_cabecalho-base">
+            
+            <!-- MARCA + LOGO -->
+            <div class="marca_cabecalho-base">
+                <a href="{% url 'home' %}" class="link_logo-base">
+                    <img src="{% static 'img/logo.png' %}" alt="Logo Logística Fácil" class="img_logo-base">
+                    <div class="texto_marca-base">
+                        <h1 class="titulo_sistema-base">Logística Fácil</h1>
+                        <span class="subtitulo_sistema-base">Painel de Controle</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- BOTÃO MENU MOBILE -->
+            <button type="button" class="btn_menu_mobile-base" id="btnMenuMobile" aria-label="Abrir Menu">
+                <span class="icone_hamburguer-base"></span>
+            </button>
+
+            <!-- MENU DE NAVEGAÇÃO ORGANIZADO -->
+            <nav class="navegacao-base" id="navegacaoPrincipal">
+                <div class="links_navegacao-base">
+                    <a href="{% url 'home' %}" class="item_link-base">Home</a>
+                    <a href="{% url 'lista_veiculos' %}" class="item_link-base">Veículos</a>
+                    <a href="{% url 'lista_funcionario' %}" class="item_link-base">Funcionários</a>
+                    <a href="{% url 'lista_viagem' %}" class="item_link-base">Viagens</a>
+                    <a href="{% url 'lista_caixa' %}" class="item_link-base">Caixa</a>
+                </div>
+
+                <!-- ÁREA DE USUÁRIO / PERFIL -->
+                <div class="usuario_info-base">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'perfil_user' %}" class="link_perfil_usuario-base" title="Acessar Perfil">
+                            Olá, <strong>{{ user.username }}</strong>
+                        </a>
+                        <a href="{% url 'logout' %}" class="btn_sair-base">Sair</a>
+                    {% else %}
+                        <span class="saudacao_usuario-base">Não autenticado</span>
+                        <a href="{% url 'login' %}" class="btn_login-base">Login</a>
+                    {% endif %}
+                </div>
+            </nav>
+
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="conteudo_principal-base">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- RODAPÉ TEMA ESCURO (PRETO) -->
+    <footer class="rodape-base">
+        <div class="container_rodape-base">
+            
+            <!-- COLUNA 1 -->
+            <div class="coluna_rodape-base">
+                <h4 class="titulo_coluna-base">Logística Fácil</h4>
+                <p class="texto_coluna-base">Sistema completo para gestão de frotas, motoristas, controle operacional de viagens e fluxo de caixa financeiro.</p>
+            </div>
+
+            <!-- COLUNA 2 -->
+            <div class="coluna_rodape-base">
+                <h4 class="titulo_coluna-base">Empresa Proprietária</h4>
+                <p class="item_contato-base"><strong>Nome:</strong> [Nome da Sua Empresa aqui]</p>
+                <p class="item_contato-base"><strong>CNPJ:</strong> [00.000.000/0001-00]</p>
+                <p class="item_contato-base"><strong>E-mail:</strong> [contato@empresa.com.br]</p>
+                <p class="item_contato-base"><strong>Telefone/Whats:</strong> [(00) 00000-0000]</p>
+            </div>
+
+            <!-- COLUNA 3 -->
+            <div class="coluna_rodape-base">
+                <h4 class="titulo_coluna-base">Desenvolvimento & Suporte</h4>
+                <p class="item_contato-base"><strong>Desenvolvedor:</strong> [Nome do Desenvolvedor]</p>
+                <p class="item_contato-base"><strong>E-mail Suporte:</strong> [suporte@desenvolvedor.com]</p>
+                <p class="item_contato-base"><strong>Portfólio / Site:</strong> [www.site-dev.com.br]</p>
+                <p class="item_contato-base"><strong>WhatsApp Dev:</strong> [(00) 00000-0000]</p>
+            </div>
+
+        </div>
+
+        <div class="copia_direitos-base">
+            <p>&copy; 2026 - Logística Fácil | Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Global -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
