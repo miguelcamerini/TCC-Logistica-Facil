@@ -1,3 +1,3 @@
-Css e JS Home bem como Views novas
+Css e JS de  home externo e de login e logout
 
-Css e JS Home bem como Views novas, apenas inline css externo nao funcionou, e views baguncadas mas consertadas
+Css e JS de  home em conent. css a partir de um css externo, css de login e logout e problemas com visual de user
