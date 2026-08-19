@@ -1,0 +1,462 @@
+/* ==========================================================================
+   ESTILOS DE CONTEÚDO E AUTENTICAÇÃO (content.css)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. GRID E CARDS DA HOME (_home / content)
+   -------------------------------------------------------------------------- */
+.container-home {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+.grid_resumos-home {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: 
+        "viagens caixa"
+        "funcionarios veiculos";
+    gap: 25px;
+}
+
+.area_viagens-home { grid-area: viagens; }
+.area_caixa-home { grid-area: caixa; }
+.area_funcionarios-home { grid-area: funcionarios; }
+.area_veiculos-home { grid-area: veiculos; }
+
+.card_resumo-home {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 230px;
+}
+
+.cabecalho_card-home {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f4f6f9;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+}
+
+.titulo_card-home {
+    font-size: 1.15rem;
+    color: #1a1a1a;
+    font-weight: 700;
+    margin: 0;
+}
+
+.link_ver_mais-home {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.link_ver_mais-home:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.lista_resumo-home {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item_resumo-home {
+    padding: 8px 0;
+    border-bottom: 1px dashed #e9ecef;
+    font-size: 0.9rem;
+    color: #333333;
+}
+
+.item_resumo-home:last-child {
+    border-bottom: none;
+}
+
+.item_titulo-home {
+    font-weight: bold;
+    display: block;
+}
+
+.item_subtexto-home {
+    font-size: 0.82rem;
+    color: #666666;
+    margin-top: 2px;
+}
+
+.reticencias_mais-home {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff;
+    text-align: center;
+    margin-top: 5px;
+    line-height: 1;
+}
+
+.texto_vazio-home {
+    font-size: 0.88rem;
+    color: #888888;
+    font-style: italic;
+    margin: 15px 0;
+}
+
+.info_data_caixa-home {
+    font-size: 0.88rem;
+    color: #555555;
+    margin-bottom: 15px;
+}
+
+.box_valor_censurado-home {
+    background-color: #f8f9fa;
+    padding: 14px 18px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.rotulo_saldo-home {
+    font-size: 0.82rem;
+    color: #666666;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.conteudo_valor-home {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.35rem;
+    font-weight: bold;
+}
+
+.texto_valor_oculto-home {
+    color: #666666;
+    letter-spacing: 2px;
+}
+
+.texto_valor_real-home {
+    color: #28a745;
+}
+
+.desativado-home {
+    display: none !important;
+}
+
+.btn_olho-home {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.btn_olho-home:hover {
+    background-color: #e2e8f0;
+}
+
+
+/* --------------------------------------------------------------------------
+   2. ESTILOS DE AUTENTICAÇÃO (LOGIN E CADASTRO)
+   -------------------------------------------------------------------------- */
+.container_auth_central-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 15px;
+    width: 100%;
+}
+
+.card_auth-content {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 440px;
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 35px 30px;
+}
+
+.card_cadastro-content {
+    max-width: 520px;
+}
+
+.cabecalho_auth-content {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.titulo_auth-content {
+    font-size: 1.8rem;
+    color: var(--cor-primaria-base, #007bff);
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.subtitulo_auth-content {
+    font-size: 0.9rem;
+    color: #666666;
+}
+
+/* Mensagens de Alerta */
+.container_mensagens-content {
+    margin-bottom: 20px;
+}
+
+.alerta_auth-content {
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    text-align: center;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alerta_success-content {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+/* Formulário e Campos */
+.form_auth-content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.grupo_campo-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.label_campo-content {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #333333;
+}
+
+.input_campo-content {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.input_campo-content:focus {
+    border-color: var(--cor-primaria-base, #007bff);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.wrapper_input_senha-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.btn_olho_senha-content {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px;
+    opacity: 0.7;
+}
+
+.btn_olho_senha-content:hover {
+    opacity: 1;
+}
+
+/* Form de Cadastro do Django */
+.django_form_wrapper-content p {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #333333;
+}
+
+.django_form_wrapper-content input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.django_form_wrapper-content input:focus {
+    border-color: var(--cor-primaria-base, #007bff);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.django_form_wrapper-content .helptext {
+    font-size: 0.75rem;
+    color: #6c757d;
+    font-weight: normal;
+    margin-top: 2px;
+}
+
+.django_form_wrapper-content .errorlist {
+    list-style: none;
+    padding: 0;
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 3px;
+}
+
+/* Botões */
+.btn_primario_auth-content {
+    width: 100%;
+    background-color: var(--cor-primaria-base, #007bff);
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 5px;
+}
+
+.btn_primario_auth-content:hover {
+    background-color: var(--cor-primaria-hover-base, #0056b3);
+}
+
+.btn_sucesso_auth-content {
+    background-color: #28a745;
+}
+
+.btn_sucesso_auth-content:hover {
+    background-color: #218838;
+}
+
+.divisor_auth-content {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 22px 0;
+    border-bottom: 1px solid #e9ecef;
+    line-height: 0.1em;
+}
+
+.divisor_auth-content span {
+    background: #fff;
+    padding: 0 12px;
+    color: #888888;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.rodape_auth-content {
+    text-align: center;
+}
+
+.texto_rodape_auth-content {
+    font-size: 0.88rem;
+    color: #555555;
+    margin-bottom: 10px;
+}
+
+.btn_secundario_auth-content {
+    display: inline-block;
+    width: 100%;
+    background-color: #e9ecef;
+    color: #333333;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.btn_secundario_auth-content:hover {
+    background-color: #dee2e6;
+}
+
+.link_voltar_auth-content {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.link_voltar_auth-content:hover {
+    text-decoration: underline;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------------------------------------------------------------
+   3. RESPONSIVIDADE (MOBILE / TABLET)
+   -------------------------------------------------------------------------- */
+@media (max-width: 850px) {
+    .grid_resumos-home {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "viagens"
+            "caixa"
+            "funcionarios"
+            "veiculos";
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}

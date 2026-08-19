@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block title %}Funcionários - Logística Fácil{% endblock %}
+
+{% block content %}
+<div style="max-width: 1100px; margin: 0 auto; background: #ffffff; padding: 25px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+        <h2>Gestão de Funcionários / Motoristas</h2>
+        <a href="{% url 'add_funcionario' %}" style="text-decoration: none;">
+            <button type="button" class="btn-novo">+ Novo Funcionário</button>
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alerta-sucesso" style="background-color: {% if message.tags == 'error' %}#f8d7da{% else %}#d4edda{% endif %}; color: {% if message.tags == 'error' %}#721c24{% else %}#155724{% endif %};">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- TABELA 1: FUNCIONÁRIOS CONTRATADOS -->
+    <h3 style="color: #28a745;">Funcionários Contratados</h3>
+    {% if contratados %}
+        <table class="tabela-frota">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Cargo</th>
+                    <th>CNH</th>
+                    <th>Validade CNH</th>
+                    <th>Status</th>
+                    <th class="coluna-acoes">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for func in contratados %}
+                    <tr class="{% cycle 'linha-branca' 'linha-cinza' %}">
+                        <td class="texto-negrito">{{ func.nome }}</td>
+                        <td>{{ func.cpf }}</td>
+                        <td>{{ func.telefone|default:"-" }}</td>
+                        <td>{{ func.cargo|default:"-" }}</td>
+                        <td>{{ func.cnh|default:"-" }}</td>
+                        <td>{{ func.validade_cnh|date:"d/m/Y"|default:"-" }}</td>
+                        <td><span class="badge-status status-ativo">{{ func.status.nome|title }}</span></td>
+                        <td>
+                            <div class="container-botoes">
+                                <a href="{% url 'editar_funcionario' func.id %}"><button type="button" class="btn-editar">Editar</button></a>
+                                <form action="{% url 'excluir_funcionario' func.id %}" method="POST" style="margin:0;" onsubmit="return confirm('Deseja realmente excluir este funcionário?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-excluir">Excluir</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="aviso-vazio">Nenhum funcionário contratado cadastrado.</div>
+    {% endif %}
+
+    <br><hr><br>
+
+    <!-- TABELA 2: FUNCIONÁRIOS NEUTROS -->
+    <h3 style="color: #6c757d;">Funcionários Neutros</h3>
+    {% if neutros %}
+        <table class="tabela-frota">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Cargo</th>
+                    <th>CNH</th>
+                    <th>Validade CNH</th>
+                    <th>Status</th>
+                    <th class="coluna-acoes">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for func in neutros %}
+                    <tr class="{% cycle 'linha-branca' 'linha-cinza' %}">
+                        <td class="texto-negrito">{{ func.nome }}</td>
+                        <td>{{ func.cpf }}</td>
+                        <td>{{ func.telefone|default:"-" }}</td>
+                        <td>{{ func.cargo|default:"-" }}</td>
+                        <td>{{ func.cnh|default:"-" }}</td>
+                        <td>{{ func.validade_cnh|date:"d/m/Y"|default:"-" }}</td>
+                        <td><span class="badge-status status-inativo">{{ func.status.nome|title }}</span></td>
+                        <td>
+                            <div class="container-botoes">
+                                <a href="{% url 'editar_funcionario' func.id %}"><button type="button" class="btn-editar">Editar</button></a>
+                                <form action="{% url 'excluir_funcionario' func.id %}" method="POST" style="margin:0;" onsubmit="return confirm('Deseja realmente excluir este funcionário?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-excluir">Excluir</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="aviso-vazio">Nenhum funcionário com status neutro.</div>
+    {% endif %}
+
+    <!-- TABELA 3: OUTROS STATUS (SE HOUVER) -->
+    {% if outros %}
+        <br><hr><br>
+        <h3 style="color: #17a2b8;">Outros Funcionários</h3>
+        <table class="tabela-frota">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Cargo</th>
+                    <th>CNH</th>
+                    <th>Validade CNH</th>
+                    <th>Status</th>
+                    <th class="coluna-acoes">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for func in outros %}
+                    <tr class="{% cycle 'linha-branca' 'linha-cinza' %}">
+                        <td class="texto-negrito">{{ func.nome }}</td>
+                        <td>{{ func.cpf }}</td>
+                        <td>{{ func.telefone|default:"-" }}</td>
+                        <td>{{ func.cargo|default:"-" }}</td>
+                        <td>{{ func.cnh|default:"-" }}</td>
+                        <td>{{ func.validade_cnh|date:"d/m/Y"|default:"-" }}</td>
+                        <td><span class="badge-status">{{ func.status.nome|default:"Sem Status"|title }}</span></td>
+                        <td>
+                            <div class="container-botoes">
+                                <a href="{% url 'editar_funcionario' func.id %}"><button type="button" class="btn-editar">Editar</button></a>
+                                <form action="{% url 'excluir_funcionario' func.id %}" method="POST" style="margin:0;" onsubmit="return confirm('Deseja realmente excluir este funcionário?');">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn-excluir">Excluir</button>
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <br><br>
+    <a href="{% url 'home' %}" style="color: #666; text-decoration: none;">← Voltar ao Início</a>
+</div>
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Painel Resumo - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container-home">
+
+    <div class="grid_resumos-home">
+
+        <!-- LINHA SUPERIOR: VIAGENS -->
+        <div class="card_resumo-home area_viagens-home">
+            <div class="cabecalho_card-home">
+                <h3 class="titulo_card-home">🗺️ Viagens em Andamento</h3>
+                <a href="{% url 'lista_viagem' %}" class="link_ver_mais-home" title="Ver todas as viagens">Acessar Tela →</a>
+            </div>
+
+            {% if viagens_andamento %}
+                <ul class="lista_resumo-home">
+                    {% for v in viagens_andamento %}
+                        <li class="item_resumo-home">
+                            <strong class="item_titulo-home">{{ v.local_inicio }} x {{ v.local_final }}</strong>
+                            <div class="item_subtexto-home">
+                                Motorista: {{ v.motorista.nome }} | Veículo: {{ v.veiculo_1.placa }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if tem_mais_viagens %}
+                    <div class="reticencias_mais-home">...</div>
+                {% endif %}
+            {% else %}
+                <p class="texto_vazio-home">Nenhuma viagem em andamento no momento.</p>
+            {% endif %}
+        </div>
+
+        <!-- LINHA SUPERIOR: CAIXA -->
+        <div class="card_resumo-home area_caixa-home">
+            <div class="cabecalho_card-home">
+                <h3 class="titulo_card-home">💰 Fluxo de Caixa</h3>
+                <a href="{% url 'lista_caixa' %}" class="link_ver_mais-home" title="Acessar caixa completo">Acessar Tela →</a>
+            </div>
+
+            <p class="info_data_caixa-home">
+                <strong>Última movimentação:</strong> 
+                {% if ultima_data_caixa %}
+                    {{ ultima_data_caixa|date:"d/m/Y" }}
+                {% else %}
+                    Sem registros
+                {% endif %}
+            </p>
+
+            <div class="box_valor_censurado-home">
+                <span class="rotulo_saldo-home">Saldo Atual:</span>
+                <div class="conteudo_valor-home">
+                    <span id="valorCaixaHome" class="texto_valor_oculto-home">R$ *****</span>
+                    <span id="valorRealCaixaHome" class="texto_valor_real-home desativado-home">
+                        R$ {{ saldo_caixa|floatformat:2 }}
+                    </span>
+                    <button type="button" id="btnToggleCaixaHome" class="btn_olho-home" title="Mostrar/Ocultar valor">
+                        👁️
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- LINHA INFERIOR: FUNCIONÁRIOS -->
+        <div class="card_resumo-home area_funcionarios-home">
+            <div class="cabecalho_card-home">
+                <h3 class="titulo_card-home">👨‍✈️ Funcionários Ativos</h3>
+                <a href="{% url 'lista_funcionario' %}" class="link_ver_mais-home" title="Ver todos os funcionários">Acessar Tela →</a>
+            </div>
+
+            {% if funcionarios_ativos %}
+                <ul class="lista_resumo-home">
+                    {% for func in funcionarios_ativos %}
+                        <li class="item_resumo-home">
+                            <strong class="item_titulo-home">{{ func.nome }}</strong>
+                            <div class="item_subtexto-home">
+                                Cargo: {{ func.cargo|default:"Motorista" }} | CNH: {{ func.cnh|default:"-" }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if tem_mais_funcionarios %}
+                    <div class="reticencias_mais-home">...</div>
+                {% endif %}
+            {% else %}
+                <p class="texto_vazio-home">Nenhum funcionário ativo cadastrado.</p>
+            {% endif %}
+        </div>
+
+        <!-- LINHA INFERIOR: VEÍCULOS -->
+        <div class="card_resumo-home area_veiculos-home">
+            <div class="cabecalho_card-home">
+                <h3 class="titulo_card-home">🚛 Veículos Operacionais</h3>
+                <a href="{% url 'lista_veiculos' %}" class="link_ver_mais-home" title="Ver todos os veículos">Acessar Tela →</a>
+            </div>
+
+            {% if veiculos_ativos %}
+                <ul class="lista_resumo-home">
+                    {% for v in veiculos_ativos %}
+                        <li class="item_resumo-home">
+                            <strong class="item_titulo-home">{{ v.nome_fantasia }}</strong>
+                            <div class="item_subtexto-home">
+                                Placa: {{ v.placa }} | Status: {{ v.get_status_display }}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                {% if tem_mais_veiculos %}
+                    <div class="reticencias_mais-home">...</div>
+                {% endif %}
+            {% else %}
+                <p class="texto_vazio-home">Nenhum veículo disponível ou em viagem.</p>
+            {% endif %}
+        </div>
+
+    </div>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}"></script>
+{% endblock %}

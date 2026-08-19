@@ -1,0 +1,322 @@
+/* ==========================================================================
+   1. CONFIGURAÇÕES GERAIS E RESETS DA BASE (GLOBAL)
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --cor-primaria-base: #007bff;
+    --cor-primaria-hover-base: #0056b3;
+    --cor-sucesso-base: #28a745;
+    --cor-perigo-base: #dc3545;
+    --cor-cinza-escuro-base: #1a1a1a;
+    --cor-fundo-pagina-base: #f4f6f9;
+    --cor-fundo-rodape-base: #121212;
+    --cor-fundo-rodape-card-base: #1e1e1e;
+    --cor-texto-rodape-base: #b0b0b0;
+    --cor-borda-base: #dee2e6;
+    --fonte-padrao-base: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body.corpo-base {
+    background-color: var(--cor-fundo-pagina-base);
+    font-family: var(--fonte-padrao-base);
+    color: #333333;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ==========================================================================
+   2. CABEÇALHO E NAVEGAÇÃO ORGANIZADA (_base) - BARRA SUPERIOR MAIS ALTA
+   ========================================================================== */
+.cabecalho-base {
+    background-color: var(--cor-primaria-base);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    /* AUMENTADO: de 12px para 22px de padding vertical para deixar a barra bem mais alta */
+    padding: 22px 0; 
+}
+
+.container_cabecalho-base {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.marca_cabecalho-base {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.link_logo-base {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+    color: #ffffff;
+}
+
+/* LOGO PROPORCIONAL À NOVA ALTURA DA BARRA */
+.img_logo-base {
+    /* AUMENTADO: de 48px para 58px para preencher o novo cabeçalho */
+    height: 58px; 
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.2));
+}
+
+.texto_marca-base {
+    display: flex;
+    flex-direction: column;
+}
+
+.titulo_sistema-base {
+    font-size: 1.5rem; /* Levemente expandido */
+    font-weight: 700;
+    line-height: 1.1;
+    white-space: nowrap;
+}
+
+.subtitulo_sistema-base {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    white-space: nowrap;
+}
+
+/* LINKS DO MENU EM LINHA */
+.navegacao-base {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-left: 20px;
+}
+
+.links_navegacao-base {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.item_link-base {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.92rem;
+    /* AUMENTADO: padding mais robusto nos botões internos */
+    padding: 10px 16px; 
+    border-radius: 6px;
+    background-color: rgba(255, 255, 255, 0.12);
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.item_link-base:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-1px);
+}
+
+/* USUÁRIO / SAIR */
+.usuario_info-base {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-left: 1px solid rgba(255, 255, 255, 0.35);
+    padding-left: 18px;
+    flex-shrink: 0;
+}
+
+.link_perfil_usuario-base {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    padding: 8px 12px;
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.15);
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.link_perfil_usuario-base:hover {
+    background-color: rgba(0, 0, 0, 0.28);
+    text-decoration: underline;
+}
+
+.btn_sair-base,
+.btn_login-base {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 14px;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+}
+
+.btn_sair-base:hover { background-color: var(--cor-perigo-base); }
+.btn_login-base:hover { background-color: var(--cor-sucesso-base); }
+
+/* BOTÃO MENU MOBILE */
+.btn_menu_mobile-base {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.icone_hamburguer-base {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    position: relative;
+}
+
+.icone_hamburguer-base::before,
+.icone_hamburguer-base::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 3px;
+    background-color: #ffffff;
+    left: 0;
+}
+
+.icone_hamburguer-base::before { top: -7px; }
+.icone_hamburguer-base::after { top: 7px; }
+
+/* ==========================================================================
+   3. CONTEÚDO PRINCIPAL (_base)
+   ========================================================================== */
+.conteudo_principal-base {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+/* ==========================================================================
+   4. RODAPÉ ESCURO / PRETO (_base)
+   ========================================================================== */
+.rodape-base {
+    background-color: var(--cor-fundo-rodape-base);
+    color: #ffffff;
+    margin-top: auto;
+    padding-top: 35px;
+    border-top: 3px solid var(--cor-primaria-base);
+}
+
+.container_rodape-base {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.coluna_rodape-base {
+    background-color: var(--cor-fundo-rodape-card-base);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #2a2a2a;
+}
+
+.titulo_coluna-base {
+    color: #3b82f6;
+    font-size: 1.05rem;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #333333;
+    padding-bottom: 8px;
+}
+
+.texto_coluna-base, 
+.item_contato-base {
+    color: var(--cor-texto-rodape-base);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin-bottom: 6px;
+}
+
+.item_contato-base strong {
+    color: #ffffff;
+}
+
+.copia_direitos-base {
+    text-align: center;
+    padding: 15px;
+    margin-top: 30px;
+    background-color: #0a0a0a;
+    font-size: 0.8rem;
+    color: #777777;
+    border-top: 1px solid #1a1a1a;
+}
+
+/* ==========================================================================
+   5. RESPONSIVIDADE (MOBILE E TABLETS VERTICAIS)
+   ========================================================================== */
+@media (max-width: 900px) {
+    .btn_menu_mobile-base {
+        display: block;
+    }
+
+    .navegacao-base {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #0056b3;
+        flex-direction: column;
+        align-items: stretch;
+        padding: 15px 20px;
+        gap: 15px;
+        display: none;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        margin-left: 0;
+    }
+
+    .navegacao-base.menu_ativo-base {
+        display: flex;
+    }
+
+    .links_navegacao-base {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 6px;
+    }
+
+    .item_link-base {
+        text-align: center;
+        padding: 12px;
+    }
+
+    .usuario_info-base {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        padding-left: 0;
+        padding-top: 12px;
+        justify-content: space-between;
+    }
+
+    .container_rodape-base {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
