@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editar Perfil - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=6.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_formulario-edit_user">
+    <h2 class="titulo_pagina-edit_user">Editar Dados do Perfil</h2>
+    <p class="subtitulo_pagina-edit_user">Atualize seus dados cadastrais.</p>
+    <hr class="divisor_pagina-edit_user"><br>
+
+    <form method="POST" class="formulario_padrao-edit_user" id="form-edit_user">
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="grupo_campo-edit_user">
+                <label class="rotulo_campo-edit_user" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <span class="erro_campo-edit_user">{{ field.errors.0 }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <br>
+        <div class="container_botoes_form-edit_user">
+            <a href="{% url 'perfil_user' %}" class="link_cancelar-edit_user">
+                <button type="button" class="btn_cancelar-edit_user">Cancelar</button>
+            </a>
+            <button type="submit" class="btn_salvar-edit_user" id="btn_salvar-edit_user">Salvar Alterações</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=6.0"></script>
+{% endblock %}

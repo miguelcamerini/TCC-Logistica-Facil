@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Gerenciamento de Viagens - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=14.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_principal-lista_viagem">
+    
+    <div class="cabecalho_pagina-lista_viagem">
+        <h2 class="titulo_pagina-lista_viagem">Gerenciamento de Viagens</h2>
+        <a href="{% url 'add_viagem' %}" class="link_novo-lista_viagem">
+            <button type="button" class="btn_novo-lista_viagem">+ Adicionar Viagem</button>
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alerta_sucesso-lista_viagem alerta_{{ message.tags }}-lista_viagem">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <hr class="divisor-lista_viagem"><br>
+
+    <!-- TABELA 1: VIAGENS ATIVAS / PLANEJADAS (Barra Azul) -->
+    <h3 class="subtitulo_operacionais-lista_viagem">Viagens em Operação / Planejadas</h3>
+    {% if ativas %}
+        <div class="wrapper_tabela-lista_viagem">
+            <table class="tabela_frota-lista_viagem tabela_ativas-lista_viagem">
+                <thead>
+                    <tr>
+                        <th>Data Início</th>
+                        <th>Contratante</th>
+                        <th>Rota (Origem x Destino)</th>
+                        <th>MIC</th>
+                        <th>NF</th>
+                        <th>Motorista</th>
+                        <th>Adiantamento</th>
+                        <th>Quitação</th>
+                        <th>Valor Total</th>
+                        <th>Status</th>
+                        <th class="coluna_acoes-lista_viagem">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for viagem in ativas|dictsortreversed:"data_inicio" %}
+                        <tr class="{% cycle 'linha_branca-lista_viagem' 'linha_cinza-lista_viagem' %}">
+                            <td class="texto_negrito-lista_viagem">{{ viagem.data_inicio|date:"d/m/Y" }}</td>
+                            <td>{{ viagem.contratante }}</td>
+                            <td>{{ viagem.local_inicio }} <strong>x</strong> {{ viagem.local_final }}</td>
+                            <td class="texto_negrito-lista_viagem">{{ viagem.mic|default:"-" }}</td>
+                            <td class="texto_negrito-lista_viagem">{{ viagem.nota_fiscal|default:"-" }}</td>
+                            <td>{{ viagem.motorista.nome }}</td>
+                            <td class="valor_preto-lista_viagem">R$ {{ viagem.valor_adiantamento|default:"0.00" }}</td>
+                            <td class="valor_preto-lista_viagem">R$ {{ viagem.valor_quitacao|default:"0.00" }}</td>
+                            <td class="texto_negrito-lista_viagem valor_verde-lista_viagem">R$ {{ viagem.valor_total|floatformat:2 }}</td>
+                            <td>
+                                <span class="badge_status-lista_viagem status_{{ viagem.status_da_viagem }}-lista_viagem">
+                                    {{ viagem.get_status_da_viagem_display }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="container_botoes-lista_viagem">
+                                    <a href="{% url 'edit_viagem' viagem.id %}" class="link_acao-lista_viagem">
+                                        <button type="button" class="btn_editar-lista_viagem">Editar</button>
+                                    </a>
+                                    <form action="{% url 'excluir_viagem' viagem.id %}" method="POST" class="form_excluir-lista_viagem" data-confirm-exclusao>
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn_excluir-lista_viagem">Excluir</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="aviso_vazio-lista_viagem">Nenhuma viagem ativa ou planejada no momento.</div>
+    {% endif %}
+
+    <!-- TABELA 2: HISTÓRICO DE VIAGENS (Barra Escura) -->
+    <h3 class="subtitulo_historico-lista_viagem">Histórico de Viagens (Concluídas, Quitadas e Canceladas)</h3>
+    {% if historico %}
+        <div class="wrapper_tabela-lista_viagem">
+            <table class="tabela_frota-lista_viagem tabela_historico-lista_viagem">
+                <thead>
+                    <tr>
+                        <th>Data Início</th>
+                        <th>Contratante</th>
+                        <th>Rota</th>
+                        <th>MIC</th>
+                        <th>NF</th>
+                        <th>Motorista</th>
+                        <th>Adiantamento</th>
+                        <th>Quitação</th>
+                        <th>Valor Total</th>
+                        <th>Status</th>
+                        <th class="coluna_acoes-lista_viagem">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for viagem in historico|dictsortreversed:"data_inicio" %}
+                        <tr class="{% cycle 'linha_branca-lista_viagem' 'linha_cinza-lista_viagem' %}">
+                            <td>{{ viagem.data_inicio|date:"d/m/Y" }}</td>
+                            <td>{{ viagem.contratante }}</td>
+                            <td>{{ viagem.local_inicio }} x {{ viagem.local_final }}</td>
+                            <td class="texto_negrito-lista_viagem">{{ viagem.mic|default:"-" }}</td>
+                            <td class="texto_negrito-lista_viagem">{{ viagem.nota_fiscal|default:"-" }}</td>
+                            <td>{{ viagem.motorista.nome }}</td>
+                            <td class="valor_preto-lista_viagem">R$ {{ viagem.valor_adiantamento|default:"0.00" }}</td>
+                            <td class="valor_preto-lista_viagem">R$ {{ viagem.valor_quitacao|default:"0.00" }}</td>
+                            <td class="texto_negrito-lista_viagem {% if viagem.status_da_viagem == 'cancelada' %}valor_vermelho-lista_viagem{% else %}valor_verde-lista_viagem{% endif %}">
+                                R$ {{ viagem.valor_total|floatformat:2 }}
+                            </td>
+                            <td>
+                                <span class="badge_status-lista_viagem status_{{ viagem.status_da_viagem }}-lista_viagem">
+                                    {{ viagem.get_status_da_viagem_display }}
+                                </span>
+                            </td>
+                            <td>
+                                <div class="container_botoes-lista_viagem">
+                                    <a href="{% url 'edit_viagem' viagem.id %}" class="link_acao-lista_viagem">
+                                        <button type="button" class="btn_editar-lista_viagem">Editar</button>
+                                    </a>
+                                    <form action="{% url 'excluir_viagem' viagem.id %}" method="POST" class="form_excluir-lista_viagem" data-confirm-exclusao>
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn_excluir-lista_viagem">Excluir</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="aviso_vazio-lista_viagem">Nenhum histórico de viagem finalizada ou cancelada encontrado.</div>
+    {% endif %}
+
+    <br><br>
+    <a href="{% url 'home' %}" class="link_voltar_home-lista_viagem">← Voltar ao Início</a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=14.0"></script>
+{% endblock %}

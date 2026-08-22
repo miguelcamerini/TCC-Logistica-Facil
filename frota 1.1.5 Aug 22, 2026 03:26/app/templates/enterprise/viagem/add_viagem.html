@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Adicionar Viagem - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=13.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_formulario-add_viagem">
+    <h2 class="titulo_pagina-add_viagem">Registrar Nova Viagem</h2>
+    <p class="subtitulo_pagina-add_viagem">Insira os dados operacionais e financeiros do novo frete.</p>
+    <hr class="divisor_pagina-add_viagem"><br>
+
+    {% if form.non_field_errors %}
+        <div class="alerta_erro_global-add_viagem">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="POST" class="formulario_padrao-add_viagem" id="form-add_viagem" novalidate>
+        {% csrf_token %}
+        <div class="grid_formulario-add_viagem">
+            {% for field in form %}
+                <div class="grupo_campo-add_viagem {% if field.name == 'descricao' or field.name == 'observacoes' %}campo_largura_total-add_viagem{% endif %}">
+                    <label class="rotulo_campo-add_viagem" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <span class="erro_campo-add_viagem">{{ field.errors.0 }}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <br>
+        <div class="container_botoes_form-add_viagem">
+            <a href="{% url 'lista_viagem' %}" class="link_cancelar-add_viagem">
+                <button type="button" class="btn_cancelar-add_viagem">Cancelar</button>
+            </a>
+            <button type="submit" class="btn_salvar-add_viagem" id="btn_salvar-add_viagem">Salvar Viagem</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=13.0"></script>
+{% endblock %}

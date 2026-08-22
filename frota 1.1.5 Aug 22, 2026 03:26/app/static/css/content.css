@@ -1,0 +1,3240 @@
+/* ==========================================================================
+   ESTILOS DE CONTEÚDO E AUTENTICAÇÃO (content.css)
+   ========================================================================== */
+
+/* Resets Globais Necessários */
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+/* --------------------------------------------------------------------------
+   1. GRID E CARDS DA HOME (_home / content)
+   -------------------------------------------------------------------------- */
+.container-home {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 10px 0;
+}
+
+.grid_resumos-home {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: 
+        "viagens caixa"
+        "funcionarios veiculos";
+    gap: 25px;
+}
+
+.area_viagens-home { grid-area: viagens; }
+.area_caixa-home { grid-area: caixa; }
+.area_funcionarios-home { grid-area: funcionarios; }
+.area_veiculos-home { grid-area: veiculos; }
+
+.card_resumo-home {
+    background-color: #ffffff;
+    border-radius: 8px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+    padding: 22px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 230px;
+}
+
+.cabecalho_card-home {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #f4f6f9;
+    padding-bottom: 12px;
+    margin-bottom: 14px;
+}
+
+.titulo_card-home {
+    font-size: 1.15rem;
+    color: #1a1a1a;
+    font-weight: 700;
+    margin: 0;
+}
+
+.link_ver_mais-home {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.88rem;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+.link_ver_mais-home:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.lista_resumo-home {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.item_resumo-home {
+    padding: 8px 0;
+    border-bottom: 1px dashed #e9ecef;
+    font-size: 0.9rem;
+    color: #333333;
+}
+
+.item_resumo-home:last-child {
+    border-bottom: none;
+}
+
+.item_titulo-home {
+    font-weight: bold;
+    display: block;
+}
+
+.item_subtexto-home {
+    font-size: 0.82rem;
+    color: #666666;
+    margin-top: 2px;
+}
+
+.reticencias_mais-home {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #007bff;
+    text-align: center;
+    margin-top: 5px;
+    line-height: 1;
+}
+
+.texto_vazio-home {
+    font-size: 0.88rem;
+    color: #888888;
+    font-style: italic;
+    margin: 15px 0;
+}
+
+.info_data_caixa-home {
+    font-size: 0.88rem;
+    color: #555555;
+    margin-bottom: 15px;
+}
+
+.box_valor_censurado-home {
+    background-color: #f8f9fa;
+    padding: 14px 18px;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.rotulo_saldo-home {
+    font-size: 0.82rem;
+    color: #666666;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.conteudo_valor-home {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.35rem;
+    font-weight: bold;
+}
+
+.texto_valor_oculto-home {
+    color: #666666;
+    letter-spacing: 2px;
+}
+
+.texto_valor_real-home {
+    color: #28a745;
+}
+
+.desativado-home {
+    display: none !important;
+}
+
+.btn_olho-home {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.25rem;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease;
+}
+
+.btn_olho-home:hover {
+    background-color: #e2e8f0;
+}
+
+
+/* --------------------------------------------------------------------------
+   2. ESTILOS DE AUTENTICAÇÃO (LOGIN E CADASTRO)
+   -------------------------------------------------------------------------- */
+.container_auth_central-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 15px;
+    width: 100%;
+}
+
+.card_auth-content {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 440px;
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    padding: 35px 30px;
+}
+
+.card_cadastro-content {
+    max-width: 520px;
+}
+
+.cabecalho_auth-content {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.titulo_auth-content {
+    font-size: 1.8rem;
+    color: var(--cor-primaria-base, #007bff);
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.subtitulo_auth-content {
+    font-size: 0.9rem;
+    color: #666666;
+}
+
+.container_mensagens-content {
+    margin-bottom: 20px;
+}
+
+.alerta_auth-content {
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.88rem;
+    text-align: center;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.alerta_success-content {
+    background-color: #d4edda;
+    color: #155724;
+    border-color: #c3e6cb;
+}
+
+.form_auth-content {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.grupo_campo-content {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.label_campo-content {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #333333;
+}
+
+.input_campo-content {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+}
+
+.input_campo-content:focus {
+    border-color: var(--cor-primaria-base, #007bff);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.wrapper_input_senha-content {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.btn_olho_senha-content {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.1rem;
+    padding: 4px;
+    opacity: 0.7;
+}
+
+.btn_olho_senha-content:hover {
+    opacity: 1;
+}
+
+.django_form_wrapper-content p {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-bottom: 15px;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: #333333;
+}
+
+.django_form_wrapper-content input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    outline: none;
+}
+
+.django_form_wrapper-content input:focus {
+    border-color: var(--cor-primaria-base, #007bff);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.django_form_wrapper-content .helptext {
+    font-size: 0.75rem;
+    color: #6c757d;
+    font-weight: normal;
+    margin-top: 2px;
+}
+
+.django_form_wrapper-content .errorlist {
+    list-style: none;
+    padding: 0;
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 3px;
+}
+
+.btn_primario_auth-content {
+    width: 100%;
+    background-color: var(--cor-primaria-base, #007bff);
+    color: #ffffff;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 5px;
+}
+
+.btn_primario_auth-content:hover {
+    background-color: var(--cor-primaria-hover-base, #0056b3);
+}
+
+.btn_sucesso_auth-content {
+    background-color: #28a745;
+}
+
+.btn_sucesso_auth-content:hover {
+    background-color: #218838;
+}
+
+.divisor_auth-content {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 22px 0;
+    border-bottom: 1px solid #e9ecef;
+    line-height: 0.1em;
+}
+
+.divisor_auth-content span {
+    background: #fff;
+    padding: 0 12px;
+    color: #888888;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.rodape_auth-content {
+    text-align: center;
+}
+
+.texto_rodape_auth-content {
+    font-size: 0.88rem;
+    color: #555555;
+    margin-bottom: 10px;
+}
+
+.btn_secundario_auth-content {
+    display: inline-block;
+    width: 100%;
+    background-color: #e9ecef;
+    color: #333333;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.btn_secundario_auth-content:hover {
+    background-color: #dee2e6;
+}
+
+.link_voltar_auth-content {
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.link_voltar_auth-content:hover {
+    text-decoration: underline;
+}
+
+
+/* --------------------------------------------------------------------------
+   3. TELA DE ERRO
+   -------------------------------------------------------------------------- */
+.card_erro-content {
+    text-align: center;
+    border-top: 5px solid #dc3545;
+}
+
+.icone_erro_lock-content {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    line-height: 1;
+}
+
+.titulo_erro-content {
+    color: #dc3545 !important;
+}
+
+.caixa_mensagem_erro-content {
+    background-color: #f8f9fa;
+    border: 1px dashed #ced4da;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    font-size: 0.9rem;
+    color: #555555;
+    line-height: 1.5;
+}
+
+.btn_login_redireciona-content {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------------------------------------------------------------
+   3. RESPONSIVIDADE HOME (MOBILE / TABLET)
+   -------------------------------------------------------------------------- */
+@media (max-width: 850px) {
+    .grid_resumos-home {
+        grid-template-columns: 1fr;
+        grid-template-areas: 
+            "viagens"
+            "caixa"
+            "funcionarios"
+            "veiculos";
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------------------------------------------------------------
+   4. TELA DE ERRO DE ACESSO NÃO AUTENTICADO
+   -------------------------------------------------------------------------- */
+.card_erro-content {
+    text-align: center;
+    border-top: 5px solid #dc3545;
+}
+
+.icone_erro_lock-content {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    line-height: 1;
+}
+
+.titulo_erro-content {
+    color: #dc3545 !important;
+}
+
+.caixa_mensagem_erro-content {
+    background-color: #f8f9fa;
+    border: 1px dashed #ced4da;
+    border-radius: 8px;
+    padding: 15px;
+    margin: 15px 0;
+    font-size: 0.9rem;
+    color: #555555;
+    line-height: 1.5;
+}
+
+.btn_login_redireciona-content {
+    display: inline-block;
+    text-decoration: none;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+
+/* --------------------------------------------------------------------------
+   5. TELA DE PERFIL DO USUÁRIO (_perfil_user)
+   -------------------------------------------------------------------------- */
+.perfil_container-content {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.perfil_cabecalho-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.perfil_titulo-content {
+    margin: 0;
+    color: #333333;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.perfil_acoes-content {
+    display: flex;
+    gap: 10px;
+}
+
+.perfil_link_acao-content {
+    text-decoration: none;
+}
+
+.btn-editar,
+.btn-senha {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn-editar {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.btn-editar:hover {
+    background-color: #0056b3;
+}
+
+.btn-senha {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn-senha:hover {
+    background-color: #5a6268;
+}
+
+.perfil_divisor-content {
+    border: 0;
+    border-top: 1px solid #dee2e6;
+    margin: 15px 0 25px 0;
+}
+
+.mensagem_sucesso-content {
+    padding: 10px 15px;
+    margin-bottom: 15px;
+    border-radius: 4px;
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+    font-size: 0.9rem;
+}
+
+.cards-resumo {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.cards-resumo .card {
+    flex: 1;
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 6px;
+    padding: 18px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+}
+
+.cards-resumo .card h4 {
+    margin: 0 0 8px 0;
+    color: #555555;
+    font-size: 0.95rem;
+    font-weight: 600;
+}
+
+.cards-resumo .card p {
+    margin: 0;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #007bff;
+}
+
+.perfil_subtitulo-content {
+    color: #333333;
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+}
+
+.tabela-detalhes {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 25px;
+}
+
+.tabela-detalhes th,
+.tabela-detalhes td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+    font-size: 0.92rem;
+}
+
+.tabela-detalhes th {
+    width: 30%;
+    color: #495057;
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+.tabela-detalhes td {
+    color: #212529;
+}
+
+.perfil_rodape_link-content {
+    margin-top: 20px;
+}
+
+.link_voltar_home-content {
+    color: #666666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.link_voltar_home-content:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+@media (max-width: 650px) {
+    .cards-resumo {
+        flex-direction: column;
+    }
+    
+    .tabela-detalhes th,
+    .tabela-detalhes td {
+        display: block;
+        width: 100%;
+    }
+
+    .tabela-detalhes th {
+        background-color: transparent;
+        padding-bottom: 2px;
+        color: #888888;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   6. TELA DE EDIÇÃO DE PERFIL (_edit_user)
+   -------------------------------------------------------------------------- */
+.container_formulario-edit_user {
+    max-width: 550px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #dee2e6;
+}
+
+.titulo_pagina-edit_user {
+    margin: 0 0 6px 0;
+    color: #333333;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.subtitulo_pagina-edit_user {
+    margin: 0 0 15px 0;
+    color: #666666;
+    font-size: 0.9rem;
+}
+
+.divisor_pagina-edit_user {
+    border: 0;
+    border-top: 1px solid #dee2e6;
+    margin: 10px 0;
+}
+
+/* Formulário Padrão */
+.formulario_padrao-edit_user {
+    display: flex;
+    flex-direction: column;
+}
+
+.grupo_campo-edit_user {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.rotulo_campo-edit_user {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #495057;
+}
+
+.formulario_padrao-edit_user input,
+.formulario_padrao-edit_user select,
+.formulario_padrao-edit_user textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: #333333;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.formulario_padrao-edit_user input:focus,
+.formulario_padrao-edit_user select:focus,
+.formulario_padrao-edit_user textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.erro_campo-edit_user {
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 2px;
+}
+
+/* Container de Botões */
+.container_botoes_form-edit_user {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+.link_cancelar-edit_user {
+    text-decoration: none;
+}
+
+.btn_cancelar-edit_user,
+.btn_salvar-edit_user {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn_cancelar-edit_user {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn_cancelar-edit_user:hover {
+    background-color: #5a6268;
+}
+
+.btn_salvar-edit_user {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.btn_salvar-edit_user:hover {
+    background-color: #218838;
+}
+
+/* Ajustes de Celular */
+@media (max-width: 600px) {
+    .container_formulario-edit_user {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .container_botoes_form-edit_user {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .link_cancelar-edit_user,
+    .btn_cancelar-edit_user,
+    .btn_salvar-edit_user {
+        width: 100%;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   7. TELA DE ALTERAÇÃO DE SENHA (_alterar_senha_user)
+   -------------------------------------------------------------------------- */
+.container_formulario-alterar_senha_user {
+    max-width: 550px;
+    margin: 20px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #dee2e6;
+}
+
+.titulo_pagina-alterar_senha_user {
+    margin: 0 0 6px 0;
+    color: #333333;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.subtitulo_pagina-alterar_senha_user {
+    margin: 0 0 15px 0;
+    color: #666666;
+    font-size: 0.9rem;
+}
+
+.divisor_pagina-alterar_senha_user {
+    border: 0;
+    border-top: 1px solid #dee2e6;
+    margin: 10px 0;
+}
+
+/* Formulário Padrão */
+.formulario_padrao-alterar_senha_user {
+    display: flex;
+    flex-direction: column;
+}
+
+.grupo_campo-alterar_senha_user {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-bottom: 16px;
+}
+
+.rotulo_campo-alterar_senha_user {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #495057;
+}
+
+.formulario_padrao-alterar_senha_user input,
+.formulario_padrao-alterar_senha_user select,
+.formulario_padrao-alterar_senha_user textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: #333333;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.formulario_padrao-alterar_senha_user input:focus,
+.formulario_padrao-alterar_senha_user select:focus,
+.formulario_padrao-alterar_senha_user textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.texto_ajuda-alterar_senha_user {
+    font-size: 0.78rem;
+    color: #6c757d;
+    margin-top: 2px;
+    line-height: 1.3;
+}
+
+.erro_campo-alterar_senha_user {
+    color: #dc3545;
+    font-size: 0.8rem;
+    margin-top: 2px;
+}
+
+/* Container de Botões */
+.container_botoes_form-alterar_senha_user {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 12px;
+}
+
+.link_cancelar-alterar_senha_user {
+    text-decoration: none;
+}
+
+.btn_cancelar-alterar_senha_user,
+.btn_salvar-alterar_senha_user {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.btn_cancelar-alterar_senha_user {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn_cancelar-alterar_senha_user:hover {
+    background-color: #5a6268;
+}
+
+.btn_salvar-alterar_senha_user {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.btn_salvar-alterar_senha_user:hover {
+    background-color: #218838;
+}
+
+/* Ajustes de Celular */
+@media (max-width: 600px) {
+    .container_formulario-alterar_senha_user {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .container_botoes_form-alterar_senha_user {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .link_cancelar-alterar_senha_user,
+    .btn_cancelar-alterar_senha_user,
+    .btn_salvar-alterar_senha_user {
+        width: 100%;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   8. TELA DE GERENCIAMENTO DE VEÍCULOS (_lista_veiculos)
+   -------------------------------------------------------------------------- */
+.container_principal-lista_veiculos {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cabecalho_pagina-lista_veiculos {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.titulo_pagina-lista_veiculos {
+    margin: 0;
+    color: #333333;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.link_novo-lista_veiculos {
+    text-decoration: none;
+}
+
+.btn_novo-lista_veiculos {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_novo-lista_veiculos:hover {
+    background-color: #0056b3;
+}
+
+.alerta_sucesso-lista_veiculos {
+    background-color: #d4edda;
+    color: #155724;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid #c3e6cb;
+    font-size: 0.9rem;
+}
+
+.alerta_error-lista_veiculos {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+.subtitulo_operacionais-lista_veiculos {
+    color: #28a745;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+
+.subtitulo_manutencao-lista_veiculos {
+    color: #d39e00;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+
+.subtitulo_inativos-lista_veiculos {
+    color: #6c757d;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+
+/* Wrappers para Rolagem Horizontal no Celular */
+.wrapper_tabela-lista_veiculos {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.tabela_frota-lista_veiculos {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 650px;
+}
+
+.tabela_frota-lista_veiculos th,
+.tabela_frota-lista_veiculos td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+    border-right: 1px solid #e2e8f0;
+    font-size: 0.9rem;
+}
+
+.tabela_frota-lista_veiculos th:last-child,
+.tabela_frota-lista_veiculos td:last-child {
+    border-right: none;
+}
+
+/* TOPO DA BARRA DA TABELA EM AZUL COM TEXTO BRANCO */
+.tabela_frota-lista_veiculos th {
+    background-color: var(--cor-primaria-base, #007bff);
+    color: #ffffff;
+    font-weight: 700;
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.linha_branca-lista_veiculos { background-color: #ffffff; }
+.linha_cinza-lista_veiculos { background-color: #f8fafc; }
+
+.texto_negrito-lista_veiculos {
+    font-weight: 700;
+    color: #212529;
+}
+
+.badge_placa-lista_veiculos {
+    background-color: #e2e8f0;
+    color: #1e293b;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-weight: 700;
+    font-size: 0.85rem;
+}
+
+.badge_status-lista_veiculos {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.status_disponivel-lista_veiculos { background-color: #d1e7dd; color: #0f5132; }
+.status_em_viagem-lista_veiculos { background-color: #cff4fc; color: #055160; }
+.status_manutencao-lista_veiculos { background-color: #fff3cd; color: #664d03; }
+.status_vendido-lista_veiculos { background-color: #e2e3e5; color: #41464b; }
+
+.coluna_acoes-lista_veiculos {
+    text-align: center;
+    width: 140px;
+}
+
+.container_botoes-lista_veiculos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.link_acao-lista_veiculos { text-decoration: none; }
+.form_excluir-lista_veiculos { margin: 0; }
+
+.btn_editar-lista_veiculos,
+.btn_excluir-lista_veiculos {
+    padding: 5px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_editar-lista_veiculos {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.btn_editar-lista_veiculos:hover { background-color: #e0a800; }
+
+.btn_excluir-lista_veiculos {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+.btn_excluir-lista_veiculos:hover { background-color: #c82333; }
+
+.aviso_vazio-lista_veiculos {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px dashed #ced4da;
+    border-radius: 6px;
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.divisor-lista_veiculos {
+    border: 0;
+    border-top: 1px solid #dee2e6;
+    margin: 10px 0;
+}
+
+.link_voltar_home-lista_veiculos {
+    color: #666666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.link_voltar_home-lista_veiculos:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .container_principal-lista_veiculos {
+        padding: 15px;
+    }
+
+    .cabecalho_pagina-lista_veiculos {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn_novo-lista_veiculos {
+        width: 100%;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   9. TELA DE ADICIONAR VEÍCULO (_add_veiculo)
+   -------------------------------------------------------------------------- */
+.container_formulario-add_veiculo {
+    max-width: 600px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #dee2e6;
+}
+
+.titulo_pagina-add_veiculo {
+    margin: 0 0 6px 0;
+    color: #333333;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.subtitulo_pagina-add_veiculo {
+    color: #666666;
+    font-size: 0.88rem;
+    margin: 0 0 15px 0;
+}
+
+.divisor_pagina-add_veiculo {
+    border: 0;
+    border-top: 1px solid #dee2e6;
+    margin: 10px 0;
+}
+
+.alerta_erro_global-add_veiculo {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.88rem;
+}
+
+.formulario_padrao-add_veiculo {
+    display: flex;
+    flex-direction: column;
+}
+
+.grupo_campo-add_veiculo {
+    margin-bottom: 15px;
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rotulo_campo-add_veiculo {
+    font-weight: 700;
+    display: block;
+    font-size: 0.9rem;
+    color: #333333;
+}
+
+.formulario_padrao-add_veiculo input,
+.formulario_padrao-add_veiculo select,
+.formulario_padrao-add_veiculo textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: #333333;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.formulario_padrao-add_veiculo input:focus,
+.formulario_padrao-add_veiculo select:focus,
+.formulario_padrao-add_veiculo textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.erro_campo-add_veiculo {
+    color: #dc3545;
+    font-size: 0.8rem;
+    display: block;
+    margin-top: 2px;
+}
+
+.btn_salvar-add_veiculo {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    width: 100%;
+    transition: background-color 0.2s ease;
+}
+
+.btn_salvar-add_veiculo:hover {
+    background-color: #0056b3;
+}
+
+.container_cancelar-add_veiculo {
+    margin-top: 15px;
+    text-align: left;
+}
+
+.link_cancelar-add_veiculo {
+    color: #666666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.link_cancelar-add_veiculo:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .container_formulario-add_veiculo {
+        padding: 20px 15px;
+        margin: 10px;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   10. TELA DE EDITAR VEÍCULO (_editar_veiculo)
+   -------------------------------------------------------------------------- */
+.container_formulario-editar_veiculo {
+    max-width: 700px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #dee2e6;
+}
+
+.titulo_pagina-editar_veiculo {
+    margin: 0 0 6px 0;
+    color: #333333;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.subtitulo_pagina-editar_veiculo {
+    color: #666666;
+    font-size: 0.88rem;
+    margin: 0 0 15px 0;
+}
+
+.divisor_pagina-editar_veiculo {
+    border: 0;
+    border-top: 1px solid #dee2e6;
+    margin: 10px 0;
+}
+
+.alerta_erro_global-editar_veiculo {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.88rem;
+}
+
+.formulario_padrao-editar_veiculo {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.grupo_campo-editar_veiculo {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rotulo_campo-editar_veiculo {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #444444;
+}
+
+.formulario_padrao-editar_veiculo input,
+.formulario_padrao-editar_veiculo select,
+.formulario_padrao-editar_veiculo textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: #333333;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.formulario_padrao-editar_veiculo input:focus,
+.formulario_padrao-editar_veiculo select:focus,
+.formulario_padrao-editar_veiculo textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.erro_campo-editar_veiculo {
+    color: #dc3545;
+    font-size: 0.8rem;
+}
+
+.container_botoes_form-editar_veiculo {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.link_cancelar-editar_veiculo {
+    text-decoration: none;
+}
+
+.btn_cancelar-editar_veiculo,
+.btn_salvar-editar_veiculo {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_cancelar-editar_veiculo {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn_cancelar-editar_veiculo:hover {
+    background-color: #5a6268;
+}
+
+.btn_salvar-editar_veiculo {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.btn_salvar-editar_veiculo:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+    .container_formulario-editar_veiculo {
+        padding: 20px 15px;
+        margin: 10px;
+    }
+
+    .container_botoes_form-editar_veiculo {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .link_cancelar-editar_veiculo,
+    .btn_cancelar-editar_veiculo,
+    .btn_salvar-editar_veiculo {
+        width: 100%;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   11. TELA DE LISTA DE FUNCIONÁRIOS (_lista_funcionario)
+   -------------------------------------------------------------------------- */
+.container_principal-lista_funcionario {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cabecalho_pagina-lista_funcionario {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.titulo_pagina-lista_funcionario {
+    margin: 0;
+    color: #333333;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.link_novo-lista_funcionario {
+    text-decoration: none;
+}
+
+.btn_novo-lista_funcionario {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_novo-lista_funcionario:hover {
+    background-color: #0056b3;
+}
+
+.alerta_sucesso-lista_funcionario {
+    background-color: #d4edda;
+    color: #155724;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid #c3e6cb;
+    font-size: 0.9rem;
+}
+
+.alerta_error-lista_funcionario {
+    background-color: #f8d7da;
+    color: #721c24;
+    border-color: #f5c6cb;
+}
+
+.subtitulo_contratados-lista_funcionario {
+    color: #28a745;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+
+.subtitulo_neutros-lista_funcionario {
+    color: #6c757d;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+
+.subtitulo_outros-lista_funcionario {
+    color: #17a2b8;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+
+.wrapper_tabela-lista_funcionario {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.tabela_frota-lista_funcionario {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.tabela_frota-lista_funcionario th,
+.tabela_frota-lista_funcionario td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+    border-right: 1px solid #e2e8f0;
+    font-size: 0.9rem;
+}
+
+.tabela_frota-lista_funcionario th:last-child,
+.tabela_frota-lista_funcionario td:last-child {
+    border-right: none;
+}
+
+.tabela_frota-lista_funcionario th {
+    background-color: var(--cor-primaria-base, #007bff);
+    color: #ffffff;
+    font-weight: 700;
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.linha_branca-lista_funcionario { background-color: #ffffff; }
+.linha_cinza-lista_funcionario { background-color: #f8fafc; }
+
+.texto_negrito-lista_funcionario {
+    font-weight: 700;
+    color: #212529;
+}
+
+.badge_status-lista_funcionario {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: inline-block;
+}
+
+.status_ativo-lista_funcionario { background-color: #d1e7dd; color: #0f5132; }
+.status_inativo-lista_funcionario { background-color: #e2e3e5; color: #41464b; }
+
+.coluna_acoes-lista_funcionario {
+    text-align: center;
+    width: 140px;
+}
+
+.container_botoes-lista_funcionario {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+}
+
+.link_acao-lista_funcionario { text-decoration: none; }
+.form_excluir-lista_funcionario { margin: 0; }
+
+.btn_editar-lista_funcionario,
+.btn_excluir-lista_funcionario {
+    padding: 5px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_editar-lista_funcionario {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.btn_editar-lista_funcionario:hover { background-color: #e0a800; }
+
+.btn_excluir-lista_funcionario {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+.btn_excluir-lista_funcionario:hover { background-color: #c82333; }
+
+.aviso_vazio-lista_funcionario {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px dashed #ced4da;
+    border-radius: 6px;
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.9rem;
+}
+
+.divisor-lista_funcionario {
+    border: 0;
+    border-top: 1px solid #dee2e6;
+    margin: 10px 0;
+}
+
+.link_voltar_home-lista_funcionario {
+    color: #666666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.link_voltar_home-lista_funcionario:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .container_principal-lista_funcionario {
+        padding: 15px;
+    }
+
+    .cabecalho_pagina-lista_funcionario {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn_novo-lista_funcionario {
+        width: 100%;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   12. TELA DE ADICIONAR FUNCIONÁRIO (_add_funcionario)
+   -------------------------------------------------------------------------- */
+.container_formulario-add_funcionario {
+    max-width: 700px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #dee2e6;
+}
+
+.titulo_pagina-add_funcionario {
+    margin: 0 0 6px 0;
+    color: #333333;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.subtitulo_pagina-add_funcionario {
+    color: #666666;
+    font-size: 0.88rem;
+    margin: 0 0 15px 0;
+}
+
+.divisor_pagina-add_funcionario {
+    border: 0;
+    border-top: 1px solid #dee2e6;
+    margin: 10px 0;
+}
+
+.alerta_erro_global-add_funcionario {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.88rem;
+}
+
+.formulario_padrao-add_funcionario {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.grupo_campo-add_funcionario {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rotulo_campo-add_funcionario {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #333333;
+}
+
+.formulario_padrao-add_funcionario input,
+.formulario_padrao-add_funcionario select,
+.formulario_padrao-add_funcionario textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: #333333;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.formulario_padrao-add_funcionario input:focus,
+.formulario_padrao-add_funcionario select:focus,
+.formulario_padrao-add_funcionario textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.erro_campo-add_funcionario {
+    color: #dc3545;
+    font-size: 0.8rem;
+}
+
+.container_botoes_form-add_funcionario {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.link_cancelar-add_funcionario {
+    text-decoration: none;
+}
+
+.btn_cancelar-add_funcionario,
+.btn_salvar-add_funcionario {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_cancelar-add_funcionario {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn_cancelar-add_funcionario:hover {
+    background-color: #5a6268;
+}
+
+.btn_salvar-add_funcionario {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.btn_salvar-add_funcionario:hover {
+    background-color: #218838;
+}
+
+@media (max-width: 600px) {
+    .container_formulario-add_funcionario {
+        padding: 20px 15px;
+        margin: 10px;
+    }
+
+    .container_botoes_form-add_funcionario {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .link_cancelar-add_funcionario,
+    .btn_cancelar-add_funcionario,
+    .btn_salvar-add_funcionario {
+        width: 100%;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   13. TELA DE EDITAR FUNCIONÁRIO (_editar_funcionario)
+   -------------------------------------------------------------------------- */
+.container_formulario-editar_funcionario {
+    max-width: 700px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #dee2e6;
+}
+
+.titulo_pagina-editar_funcionario {
+    margin: 0 0 6px 0;
+    color: #333333;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.subtitulo_pagina-editar_funcionario {
+    color: #666666;
+    font-size: 0.88rem;
+    margin: 0 0 15px 0;
+}
+
+.divisor_pagina-editar_funcionario {
+    border: 0;
+    border-top: 1px solid #dee2e6;
+    margin: 10px 0;
+}
+
+.alerta_erro_global-editar_funcionario {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.88rem;
+}
+
+.formulario_padrao-editar_funcionario {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.grupo_campo-editar_funcionario {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.rotulo_campo-editar_funcionario {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #444444;
+}
+
+.formulario_padrao-editar_funcionario input,
+.formulario_padrao-editar_funcionario select,
+.formulario_padrao-editar_funcionario textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: #333333;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.formulario_padrao-editar_funcionario input:focus,
+.formulario_padrao-editar_funcionario select:focus,
+.formulario_padrao-editar_funcionario textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.erro_campo-editar_funcionario {
+    color: #dc3545;
+    font-size: 0.8rem;
+}
+
+.container_botoes_form-editar_funcionario {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.link_cancelar-editar_funcionario {
+    text-decoration: none;
+}
+
+.btn_cancelar-editar_funcionario,
+.btn_salvar-editar_funcionario {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_cancelar-editar_funcionario {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn_cancelar-editar_funcionario:hover {
+    background-color: #5a6268;
+}
+
+.btn_salvar-editar_funcionario {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.btn_salvar-editar_funcionario:hover {
+    background-color: #0056b3;
+}
+
+@media (max-width: 600px) {
+    .container_formulario-editar_funcionario {
+        padding: 20px 15px;
+        margin: 10px;
+    }
+
+    .container_botoes_form-editar_funcionario {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .link_cancelar-editar_funcionario,
+    .btn_cancelar-editar_funcionario,
+    .btn_salvar-editar_funcionario {
+        width: 100%;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   14. TELA DE LISTA DE VIAGENS (_lista_viagem)
+   -------------------------------------------------------------------------- */
+.container_principal-lista_viagem {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.cabecalho_pagina-lista_viagem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.titulo_pagina-lista_viagem {
+    margin: 0;
+    color: #333333;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.link_novo-lista_viagem {
+    text-decoration: none;
+}
+
+.btn_novo-lista_viagem {
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_novo-lista_viagem:hover {
+    background-color: #218838;
+}
+
+.alerta_sucesso-lista_viagem {
+    background-color: #d4edda;
+    color: #155724;
+    margin-bottom: 15px;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: 1px solid #c3e6cb;
+    font-size: 0.9rem;
+}
+
+.subtitulo_operacionais-lista_viagem {
+    color: #007bff;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+
+.subtitulo_historico-lista_viagem {
+    color: #495057;
+    font-size: 1.2rem;
+    margin-top: 35px;
+    margin-bottom: 12px;
+}
+
+.wrapper_tabela-lista_viagem {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.tabela_frota-lista_viagem {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 1000px;
+}
+
+.tabela_frota-lista_viagem th,
+.tabela_frota-lista_viagem td {
+    padding: 11px 12px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+    border-right: 1px solid #e2e8f0;
+    font-size: 0.88rem;
+}
+
+.tabela_frota-lista_viagem th:last-child,
+.tabela_frota-lista_viagem td:last-child {
+    border-right: none;
+}
+
+/* ==========================================================================
+   CORES DE BARRAS POR TIPO DE TABELA DE VIAGEM
+   ========================================================================== */
+.tabela_ativas-lista_viagem th {
+    background-color: #007bff; /* Barra Azul para Viagens Ativas */
+    color: #ffffff;
+    font-weight: 700;
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.tabela_historico-lista_viagem th {
+    background-color: #495057; /* Barra Escura para Histórico */
+    color: #ffffff;
+    font-weight: 700;
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.tabela_concluidas-lista_viagem th {
+    background-color: #28a745; /* Barra Verde para Concluídas */
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.tabela_canceladas-lista_viagem th {
+    background-color: #dc3545; /* Barra Vermelha para Canceladas */
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.linha_branca-lista_viagem { background-color: #ffffff; }
+.linha_cinza-lista_viagem { background-color: #f8fafc; }
+
+.texto_negrito-lista_viagem {
+    font-weight: 700;
+}
+
+/* ==========================================================================
+   CORES DO DINHEIRO (VALORES FINANCEIROS)
+   ========================================================================== */
+.valor_verde-lista_viagem {
+    color: #28a745 !important;
+    font-weight: 700;
+}
+
+.valor_vermelho-lista_viagem {
+    color: #dc3545 !important;
+    font-weight: 700;
+}
+
+.valor_preto-lista_viagem {
+    color: #212529 !important;
+    font-weight: 600;
+}
+
+/* Status e Badges */
+.badge_status-lista_viagem {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: inline-block;
+    text-transform: uppercase;
+}
+
+.status_planejada-lista_viagem { background-color: #e2e3e5; color: #383d41; }
+.status_em_andamento-lista_viagem { background-color: #cff4fc; color: #055160; }
+.status_concluida-lista_viagem { background-color: #d1e7dd; color: #0f5132; }
+.status_quitada-lista_viagem { background-color: #d1e7dd; color: #0f5132; }
+.status_cancelada-lista_viagem { background-color: #f8d7da; color: #721c24; }
+
+.coluna_acoes-lista_viagem {
+    text-align: center;
+    width: 140px;
+}
+
+.container_botoes-lista_viagem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.link_acao-lista_viagem { text-decoration: none; }
+.form_excluir-lista_viagem { margin: 0; }
+
+.btn_editar-lista_viagem,
+.btn_excluir-lista_viagem {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_editar-lista_viagem {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.btn_editar-lista_viagem:hover { background-color: #e0a800; }
+
+.btn_excluir-lista_viagem {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+.btn_excluir-lista_viagem:hover { background-color: #c82333; }
+
+.aviso_vazio-lista_viagem {
+    padding: 15px;
+    background-color: #f8f9fa;
+    border: 1px dashed #ced4da;
+    border-radius: 6px;
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.divisor-lista_viagem {
+    border: 0;
+    border-top: 1px solid #dee2e6;
+    margin: 10px 0;
+}
+
+.link_voltar_home-lista_viagem {
+    color: #666666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.link_voltar_home-lista_viagem:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    .container_principal-lista_viagem {
+        padding: 15px;
+    }
+
+    .cabecalho_pagina-lista_viagem {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .btn_novo-lista_viagem {
+        width: 100%;
+    }
+}
+
+
+
+/* --------------------------------------------------------------------------
+   15. TELA DE ADICIONAR VIAGEM (_add_viagem)
+   -------------------------------------------------------------------------- */
+.container_formulario-add_viagem {
+    max-width: 850px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #dee2e6;
+}
+
+.titulo_pagina-add_viagem {
+    margin: 0 0 6px 0;
+    color: #333333;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.subtitulo_pagina-add_viagem {
+    color: #666666;
+    font-size: 0.88rem;
+    margin: 0 0 15px 0;
+}
+
+.divisor_pagina-add_viagem {
+    border: 0;
+    border-top: 1px solid #dee2e6;
+    margin: 10px 0;
+}
+
+.alerta_erro_global-add_viagem {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.88rem;
+}
+
+.formulario_padrao-add_viagem {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid_formulario-add_viagem {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.grupo_campo-add_viagem {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.campo_largura_total-add_viagem {
+    grid-column: span 2;
+}
+
+.rotulo_campo-add_viagem {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #444444;
+}
+
+.formulario_padrao-add_viagem input,
+.formulario_padrao-add_viagem select,
+.formulario_padrao-add_viagem textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: #333333;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.formulario_padrao-add_viagem input:focus,
+.formulario_padrao-add_viagem select:focus,
+.formulario_padrao-add_viagem textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.erro_campo-add_viagem {
+    color: #dc3545;
+    font-size: 0.8rem;
+}
+
+.container_botoes_form-add_viagem {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.link_cancelar-add_viagem {
+    text-decoration: none;
+}
+
+.btn_cancelar-add_viagem,
+.btn_salvar-add_viagem {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_cancelar-add_viagem {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn_cancelar-add_viagem:hover {
+    background-color: #5a6268;
+}
+
+.btn_salvar-add_viagem {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+.btn_salvar-add_viagem:hover {
+    background-color: #218838;
+}
+
+@media (max-width: 650px) {
+    .container_formulario-add_viagem {
+        padding: 20px 15px;
+        margin: 10px;
+    }
+
+    .grid_formulario-add_viagem {
+        grid-template-columns: 1fr;
+    }
+
+    .campo_largura_total-add_viagem {
+        grid-column: span 1;
+    }
+
+    .container_botoes_form-add_viagem {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .link_cancelar-add_viagem,
+    .btn_cancelar-add_viagem,
+    .btn_salvar-add_viagem {
+        width: 100%;
+    }
+}
+
+
+/* --------------------------------------------------------------------------
+   16. TELA DE EDITAR VIAGEM (_editar_viagem)
+   -------------------------------------------------------------------------- */
+.container_formulario-editar_viagem {
+    max-width: 850px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #dee2e6;
+}
+
+.titulo_pagina-editar_viagem {
+    margin: 0 0 6px 0;
+    color: #333333;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.subtitulo_pagina-editar_viagem {
+    color: #666666;
+    font-size: 0.88rem;
+    margin: 0 0 15px 0;
+}
+
+.divisor_pagina-editar_viagem {
+    border: 0;
+    border-top: 1px solid #dee2e6;
+    margin: 10px 0;
+}
+
+.alerta_erro_global-editar_viagem {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.88rem;
+}
+
+.formulario_padrao-editar_viagem {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid_formulario-editar_viagem {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.grupo_campo-editar_viagem {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.campo_largura_total-editar_viagem {
+    grid-column: span 2;
+}
+
+.rotulo_campo-editar_viagem {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #444444;
+}
+
+.formulario_padrao-editar_viagem input,
+.formulario_padrao-editar_viagem select,
+.formulario_padrao-editar_viagem textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: #333333;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.formulario_padrao-editar_viagem input:focus,
+.formulario_padrao-editar_viagem select:focus,
+.formulario_padrao-editar_viagem textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.erro_campo-editar_viagem {
+    color: #dc3545;
+    font-size: 0.8rem;
+}
+
+.container_botoes_form-editar_viagem {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.link_cancelar-editar_viagem {
+    text-decoration: none;
+}
+
+.btn_cancelar-editar_viagem,
+.btn_salvar-editar_viagem {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_cancelar-editar_viagem {
+    background-color: #6c757d;
+    color: #ffffff;
+}
+
+.btn_cancelar-editar_viagem:hover {
+    background-color: #5a6268;
+}
+
+.btn_salvar-editar_viagem {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.btn_salvar-editar_viagem:hover {
+    background-color: #0056b3;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (max-width: 1750px) {
+    .container_formulario-editar_viagem {
+        padding: 20px 15px;
+        margin: 10px;
+    }
+
+    .grid_formulario-editar_viagem {
+        grid-template-columns: 1fr;
+    }
+
+    .campo_largura_total-editar_viagem {
+        grid-column: span 1;
+    }
+
+    .container_botoes_form-editar_viagem {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .link_cancelar-editar_viagem,
+    .btn_cancelar-editar_viagem,
+    .btn_salvar-editar_viagem {
+        width: 100%;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --------------------------------------------------------------------------
+   17. TELA DE LISTA DE CAIXA (_lista_caixa) - DESKTOP E MOBILE
+   -------------------------------------------------------------------------- */
+.container_principal-lista_caixa {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #dee2e6;
+    box-sizing: border-box;
+}
+
+.cabecalho_pagina-lista_caixa {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.titulo_pagina-lista_caixa {
+    margin: 0;
+    color: #333333;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.container_acoes_cabecalho-lista_caixa {
+    display: flex;
+    gap: 12px;
+}
+
+.link_novo-lista_caixa {
+    text-decoration: none;
+}
+
+.btn_novo_gasto-lista_caixa {
+    background-color: #dc3545;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_novo_gasto-lista_caixa:hover {
+    background-color: #c82333;
+}
+
+.btn_nova_entrada-lista_caixa {
+    background-color: #28a745;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_nova_entrada-lista_caixa:hover {
+    background-color: #218838;
+}
+
+.alerta_sucesso-lista_caixa {
+    background-color: #d4edda;
+    color: #155724;
+    margin-bottom: 15px;
+    padding: 12px 16px;
+    border-radius: 4px;
+    border: 1px solid #c3e6cb;
+    font-size: 0.9rem;
+}
+
+.divisor-lista_caixa {
+    border: 0;
+    border-top: 1px solid #dee2e6;
+    margin: 10px 0 20px 0;
+}
+
+/* Form de Filtro em Linha para Desktop */
+.container_filtro-lista_caixa {
+    display: flex;
+    gap: 15px;
+    align-items: flex-end;
+    background: #f8f9fa;
+    padding: 18px;
+    border-radius: 6px;
+    border: 1px solid #e9ecef;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.grupo_filtro-lista_caixa {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.grupo_filtro-lista_caixa label {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #495057;
+}
+
+.grupo_filtro-lista_caixa input,
+.grupo_filtro-lista_caixa select {
+    padding: 9px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    outline: none;
+    box-sizing: border-box;
+    width: 100%;
+    background-color: #ffffff;
+}
+
+.grupo_filtro-lista_caixa input:focus,
+.grupo_filtro-lista_caixa select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.botoes_filtro-lista_caixa {
+    display: flex;
+    gap: 10px;
+}
+
+.btn_filtrar-lista_caixa {
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_filtrar-lista_caixa:hover {
+    background-color: #0056b3;
+}
+
+.btn_limpar-lista_caixa {
+    background-color: #6c757d;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.88rem;
+    display: inline-block;
+    transition: background-color 0.2s ease;
+}
+
+.btn_limpar-lista_caixa:hover {
+    background-color: #5a6268;
+}
+
+/* Cards Financeiros */
+.cards_resumo-lista_caixa {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.card_financeiro-lista_caixa {
+    border-radius: 6px;
+    padding: 18px;
+    text-align: center;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+.card_financeiro-lista_caixa h4 {
+    margin: 0;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+}
+
+.card_financeiro-lista_caixa p {
+    margin: 10px 0 0 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.card_entradas-lista_caixa { background-color: #e8f5e9; border-color: #c8e6c9; }
+.card_entradas-lista_caixa h4 { color: #2e7d32; }
+.card_entradas-lista_caixa p { color: #28a745; }
+
+.card_saidas-lista_caixa { background-color: #ffebee; border-color: #ffcdd2; }
+.card_saidas-lista_caixa h4 { color: #c62828; }
+.card_saidas-lista_caixa p { color: #dc3545; }
+
+.card_saldo-lista_caixa { background-color: #e3f2fd; border-color: #bbdefb; }
+.card_saldo-lista_caixa h4 { color: #1565c0; }
+
+.valor_azul-lista_caixa { color: #007bff; }
+.valor_vermelho-lista_caixa { color: #dc3545 !important; font-weight: 700; }
+.valor_verde-lista_caixa { color: #28a745 !important; font-weight: 700; }
+
+.subtitulo_tabela-lista_caixa {
+    color: #333333;
+    font-size: 1.25rem;
+    margin-bottom: 15px;
+    font-weight: 700;
+}
+
+/* Tabela de Lançamentos */
+.wrapper_tabela-lista_caixa {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border: 1px solid #dee2e6;
+}
+
+.tabela_frota-lista_caixa {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 950px;
+}
+
+.tabela_frota-lista_caixa th,
+.tabela_frota-lista_caixa td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid #e9ecef;
+    border-right: 1px solid #e2e8f0;
+    font-size: 0.9rem;
+}
+
+.tabela_frota-lista_caixa th:last-child,
+.tabela_frota-lista_caixa td:last-child {
+    border-right: none;
+}
+
+.tabela_frota-lista_caixa th {
+    background-color: var(--cor-primaria-base, #007bff);
+    color: #ffffff;
+    font-weight: 700;
+    border-right: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+.linha_branca-lista_caixa { background-color: #ffffff; }
+.linha_cinza-lista_caixa { background-color: #f8fafc; }
+
+.texto_negrito-lista_caixa {
+    font-weight: 700;
+}
+
+.badge_centro-lista_caixa {
+    background-color: #e9ecef;
+    color: #495057;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.78rem;
+}
+
+.badge_tipo-lista_caixa {
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 0.78rem;
+    display: inline-block;
+}
+
+.badge_despesa-lista_caixa { background-color: #f8d7da; color: #721c24; }
+.badge_adiantamento-lista_caixa { background-color: #cff4fc; color: #055160; }
+.badge_quitacao-lista_caixa { background-color: #d1e7dd; color: #0f5132; }
+.badge_receita-lista_caixa { background-color: #d1e7dd; color: #0f5132; }
+
+.coluna_acoes-lista_caixa {
+    text-align: center;
+    width: 140px;
+}
+
+.container_botoes-lista_caixa {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+}
+
+.link_acao-lista_caixa { text-decoration: none; }
+.form_excluir-lista_caixa { margin: 0; }
+
+.btn_editar-lista_caixa,
+.btn_excluir-lista_caixa {
+    padding: 5px 12px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_editar-lista_caixa { background-color: #ffc107; color: #212529; }
+.btn_editar-lista_caixa:hover { background-color: #e0a800; }
+
+.btn_excluir-lista_caixa { background-color: #dc3545; color: #ffffff; }
+.btn_excluir-lista_caixa:hover { background-color: #c82333; }
+
+.aviso_vazio-lista_caixa {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px dashed #ced4da;
+    border-radius: 6px;
+    color: #6c757d;
+    font-style: italic;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.link_voltar_home-lista_caixa {
+    color: #666666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.link_voltar_home-lista_caixa:hover {
+    color: #007bff;
+    text-decoration: underline;
+}
+
+@media (max-width: 800px) {
+    .container_principal-lista_caixa { padding: 15px; }
+    .cabecalho_pagina-lista_caixa { flex-direction: column; align-items: flex-start; }
+    .container_acoes_cabecalho-lista_caixa { width: 100%; flex-direction: column; }
+    .btn_novo_gasto-lista_caixa, .btn_nova_entrada-lista_caixa { width: 100%; }
+    .cards_resumo-lista_caixa { grid-template-columns: 1fr; }
+    .container_filtro-lista_caixa { flex-direction: column; align-items: stretch; }
+    .botoes_filtro-lista_caixa { width: 100%; }
+    .btn_filtrar-lista_caixa, .btn_limpar-lista_caixa { flex: 1; text-align: center; }
+}
+
+
+/* --------------------------------------------------------------------------
+   18. FORMULÁRIOS DO CAIXA (DESPESA, ENTRADA E EDIÇÃO) - CENTRALIZADOS NO DESKTOP
+   -------------------------------------------------------------------------- */
+.container_formulario-despesa_caixa,
+.container_formulario-entrada_caixa,
+.container_formulario-edit_caixa {
+    max-width: 650px;
+    margin: 30px auto;
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border: 1px solid #dee2e6;
+    box-sizing: border-box;
+}
+
+.titulo_pagina-despesa_caixa { color: #dc3545; margin: 0 0 6px 0; font-size: 1.5rem; font-weight: 700; }
+.titulo_pagina-entrada_caixa { color: #28a745; margin: 0 0 6px 0; font-size: 1.5rem; font-weight: 700; }
+.titulo_pagina-edit_caixa { color: #333333; margin: 0 0 6px 0; font-size: 1.5rem; font-weight: 700; }
+
+.subtitulo_pagina-despesa_caixa,
+.subtitulo_pagina-entrada_caixa,
+.subtitulo_pagina-edit_caixa {
+    color: #666666;
+    font-size: 0.88rem;
+    margin: 0 0 15px 0;
+}
+
+.divisor_pagina-despesa_caixa,
+.divisor_pagina-entrada_caixa,
+.divisor_pagina-edit_caixa {
+    border: 0;
+    border-top: 1px solid #dee2e6;
+    margin: 10px 0 20px 0;
+}
+
+.alerta_erro_global-despesa_caixa,
+.alerta_erro_global-entrada_caixa,
+.alerta_erro_global-edit_caixa {
+    color: #dc3545;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 10px 14px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.88rem;
+}
+
+.formulario_padrao-despesa_caixa,
+.formulario_padrao-entrada_caixa,
+.formulario_padrao-edit_caixa {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.grupo_campo-despesa_caixa,
+.grupo_campo-entrada_caixa,
+.grupo_campo-edit_caixa {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.rotulo_campo-despesa_caixa,
+.rotulo_campo-entrada_caixa,
+.rotulo_campo-edit_caixa {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #444444;
+}
+
+.formulario_padrao-despesa_caixa input,
+.formulario_padrao-despesa_caixa select,
+.formulario_padrao-despesa_caixa textarea,
+.formulario_padrao-entrada_caixa input,
+.formulario_padrao-entrada_caixa select,
+.formulario_padrao-entrada_caixa textarea,
+.formulario_padrao-edit_caixa input,
+.formulario_padrao-edit_caixa select,
+.formulario_padrao-edit_caixa textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 4px;
+    font-size: 0.95rem;
+    color: #333333;
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    background-color: #ffffff;
+}
+
+.formulario_padrao-despesa_caixa input:focus,
+.formulario_padrao-despesa_caixa select:focus,
+.formulario_padrao-despesa_caixa textarea:focus {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.15);
+}
+
+.formulario_padrao-entrada_caixa input:focus,
+.formulario_padrao-entrada_caixa select:focus,
+.formulario_padrao-entrada_caixa textarea:focus {
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.15);
+}
+
+.formulario_padrao-edit_caixa input:focus,
+.formulario_padrao-edit_caixa select:focus,
+.formulario_padrao-edit_caixa textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+}
+
+.erro_campo-despesa_caixa,
+.erro_campo-entrada_caixa,
+.erro_campo-edit_caixa {
+    color: #dc3545;
+    font-size: 0.8rem;
+}
+
+.container_botoes_form-despesa_caixa,
+.container_botoes_form-entrada_caixa,
+.container_botoes_form-edit_caixa {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.link_cancelar-despesa_caixa,
+.link_cancelar-entrada_caixa,
+.link_cancelar-edit_caixa {
+    text-decoration: none;
+}
+
+.btn_cancelar-despesa_caixa,
+.btn_cancelar-entrada_caixa,
+.btn_cancelar-edit_caixa,
+.btn_salvar-despesa_caixa,
+.btn_salvar-entrada_caixa,
+.btn_salvar-edit_caixa {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.btn_cancelar-despesa_caixa,
+.btn_cancelar-entrada_caixa,
+.btn_cancelar-edit_caixa { background-color: #6c757d; color: #ffffff; }
+.btn_cancelar-despesa_caixa:hover,
+.btn_cancelar-entrada_caixa:hover,
+.btn_cancelar-edit_caixa:hover { background-color: #5a6268; }
+
+.btn_salvar-despesa_caixa { background-color: #dc3545; color: #ffffff; }
+.btn_salvar-despesa_caixa:hover { background-color: #c82333; }
+
+.btn_salvar-entrada_caixa { background-color: #28a745; color: #ffffff; }
+.btn_salvar-entrada_caixa:hover { background-color: #218838; }
+
+.btn_salvar-edit_caixa { background-color: #007bff; color: #ffffff; }
+.btn_salvar-edit_caixa:hover { background-color: #0056b3; }
+
+@media (max-width: 600px) {
+    .container_formulario-despesa_caixa,
+    .container_formulario-entrada_caixa,
+    .container_formulario-edit_caixa {
+        padding: 20px 15px;
+        margin: 10px;
+    }
+
+    .container_botoes_form-despesa_caixa,
+    .container_botoes_form-entrada_caixa,
+    .container_botoes_form-edit_caixa {
+        flex-direction: column-reverse;
+        width: 100%;
+    }
+
+    .link_cancelar-despesa_caixa, .btn_cancelar-despesa_caixa, .btn_salvar-despesa_caixa,
+    .link_cancelar-entrada_caixa, .btn_cancelar-entrada_caixa, .btn_salvar-entrada_caixa,
+    .link_cancelar-edit_caixa, .btn_cancelar-edit_caixa, .btn_salvar-edit_caixa {
+        width: 100%;
+    }
+}}

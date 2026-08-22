@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editar Viagem - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=13.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_formulario-editar_viagem">
+    <h2 class="titulo_pagina-editar_viagem">Editando Viagem ({{ viagem.contratante }})</h2>
+    <p class="subtitulo_pagina-editar_viagem">Atualize os status operacionais, KMs ou preencha as datas de quitação.</p>
+    <hr class="divisor_pagina-editar_viagem"><br>
+
+    {% if form.non_field_errors %}
+        <div class="alerta_erro_global-editar_viagem">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="POST" class="formulario_padrao-editar_viagem" id="form-editar_viagem" novalidate>
+        {% csrf_token %}
+        <div class="grid_formulario-editar_viagem">
+            {% for field in form %}
+                <div class="grupo_campo-editar_viagem {% if field.name == 'descricao' or field.name == 'observacoes' %}campo_largura_total-editar_viagem{% endif %}">
+                    <label class="rotulo_campo-editar_viagem" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <span class="erro_campo-editar_viagem">{{ field.errors.0 }}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+        <br>
+        <div class="container_botoes_form-editar_viagem">
+            <a href="{% url 'lista_viagem' %}" class="link_cancelar-editar_viagem">
+                <button type="button" class="btn_cancelar-editar_viagem">Cancelar</button>
+            </a>
+            <button type="submit" class="btn_salvar-editar_viagem" id="btn_salvar-editar_viagem">Salvar Alterações</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=13.0"></script>
+{% endblock %}

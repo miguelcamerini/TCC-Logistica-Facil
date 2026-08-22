@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Login - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container_auth_central-content">
+    <div class="card_auth-content">
+        <!-- CABEÇALHO DO CARD -->
+        <div class="cabecalho_auth-content">
+            <h1 class="titulo_auth-content">Logística Fácil</h1>
+            <p class="subtitulo_auth-content">Acesse sua conta para continuar</p>
+        </div>
+
+        <!-- MENSAGENS DE ERRO / SUCESSO -->
+        {% if messages %}
+            <div class="container_mensagens-content">
+                {% for message in messages %}
+                    <div class="alerta_auth-content {% if message.tags %}alerta_{{ message.tags }}-content{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- FORMULÁRIO DE LOGIN -->
+        <form method="POST" action="" class="form_auth-content">
+            {% csrf_token %}
+            
+            <div class="grupo_campo-content">
+                <label for="username" class="label_campo-content">Usuário</label>
+                <input type="text" id="username" name="username" class="input_campo-content" placeholder="Digite seu usuário" required autofocus>
+            </div>
+
+            <div class="grupo_campo-content">
+                <label for="password" class="label_campo-content">Senha</label>
+                <div class="wrapper_input_senha-content">
+                    <input type="password" id="password" name="password" class="input_campo-content" placeholder="Digite sua senha" required>
+                    <button type="button" id="btnToggleSenhaLogin" class="btn_olho_senha-content" title="Mostrar/Ocultar senha">👁️</button>
+                </div>
+            </div>
+
+            <button type="submit" class="btn_primario_auth-content">Entrar no Sistema</button>
+        </form>
+
+        <div class="divisor_auth-content">
+            <span>OU</span>
+        </div>
+
+        <!-- ROTA DE CADASTRO -->
+        <div class="rodape_auth-content">
+            <p class="texto_rodape_auth-content">Ainda não tem uma conta?</p>
+            <a href="{% url 'cadastro' %}" class="btn_secundario_auth-content">Criar Nova Conta</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}"></script>
+{% endblock %}

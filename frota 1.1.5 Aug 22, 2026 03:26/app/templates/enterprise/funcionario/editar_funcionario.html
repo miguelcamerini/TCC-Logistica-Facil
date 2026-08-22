@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editar Funcionário - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=11.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_formulario-editar_funcionario">
+    <h2 class="titulo_pagina-editar_funcionario">Editando Funcionário ({{ funcionario.nome }})</h2>
+    <p class="subtitulo_pagina-editar_funcionario">Modifique os campos necessários e clique em salvar para atualizar as informações.</p>
+    <hr class="divisor_pagina-editar_funcionario">
+    <br>
+
+    {% if form.non_field_errors %}
+        <div class="alerta_erro_global-editar_funcionario">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="POST" class="formulario_padrao-editar_funcionario" id="form-editar_funcionario" novalidate>
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="grupo_campo-editar_funcionario">
+                <label class="rotulo_campo-editar_funcionario" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <span class="erro_campo-editar_funcionario">{{ field.errors.0 }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <br>
+        <div class="container_botoes_form-editar_funcionario">
+            <a href="{% url 'lista_funcionario' %}" class="link_cancelar-editar_funcionario">
+                <button type="button" class="btn_cancelar-editar_funcionario">Cancelar</button>
+            </a>
+            <button type="submit" class="btn_salvar-editar_funcionario" id="btn_salvar-editar_funcionario">Salvar Alterações</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=11.0"></script>
+{% endblock %}

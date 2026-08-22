@@ -1,0 +1,170 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Funcionários - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=11.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_principal-lista_funcionario">
+    <div class="cabecalho_pagina-lista_funcionario">
+        <h2 class="titulo_pagina-lista_funcionario">Gestão de Funcionários / Motoristas</h2>
+        <a href="{% url 'add_funcionario' %}" class="link_novo-lista_funcionario">
+            <button type="button" class="btn_novo-lista_funcionario">+ Novo Funcionário</button>
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alerta_sucesso-lista_funcionario alerta_{{ message.tags }}-lista_funcionario">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!-- TABELA 1: FUNCIONÁRIOS CONTRATADOS -->
+    <h3 class="subtitulo_contratados-lista_funcionario">Funcionários Contratados</h3>
+    {% if contratados %}
+        <div class="wrapper_tabela-lista_funcionario">
+            <table class="tabela_frota-lista_funcionario">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                        <th>Cargo</th>
+                        <th>CNH</th>
+                        <th>Validade CNH</th>
+                        <th>Status</th>
+                        <th class="coluna_acoes-lista_funcionario">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for func in contratados %}
+                        <tr class="{% cycle 'linha_branca-lista_funcionario' 'linha_cinza-lista_funcionario' %}">
+                            <td class="texto_negrito-lista_funcionario">{{ func.nome }}</td>
+                            <td>{{ func.cpf }}</td>
+                            <td>{{ func.telefone|default:"-" }}</td>
+                            <td>{{ func.cargo|default:"-" }}</td>
+                            <td>{{ func.cnh|default:"-" }}</td>
+                            <td>{{ func.validade_cnh|date:"d/m/Y"|default:"-" }}</td>
+                            <td><span class="badge_status-lista_funcionario status_ativo-lista_funcionario">{{ func.status.nome|title }}</span></td>
+                            <td>
+                                <div class="container_botoes-lista_funcionario">
+                                    <a href="{% url 'editar_funcionario' func.id %}" class="link_acao-lista_funcionario"><button type="button" class="btn_editar-lista_funcionario">Editar</button></a>
+                                    <form action="{% url 'excluir_funcionario' func.id %}" method="POST" class="form_excluir-lista_funcionario" data-confirm-exclusao>
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn_excluir-lista_funcionario">Excluir</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="aviso_vazio-lista_funcionario">Nenhum funcionário contratado cadastrado.</div>
+    {% endif %}
+
+    <br><hr class="divisor-lista_funcionario"><br>
+
+    <!-- TABELA 2: FUNCIONÁRIOS NEUTROS -->
+    <h3 class="subtitulo_neutros-lista_funcionario">Funcionários Neutros</h3>
+    {% if neutros %}
+        <div class="wrapper_tabela-lista_funcionario">
+            <table class="tabela_frota-lista_funcionario">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                        <th>Cargo</th>
+                        <th>CNH</th>
+                        <th>Validade CNH</th>
+                        <th>Status</th>
+                        <th class="coluna_acoes-lista_funcionario">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for func in neutros %}
+                        <tr class="{% cycle 'linha_branca-lista_funcionario' 'linha_cinza-lista_funcionario' %}">
+                            <td class="texto_negrito-lista_funcionario">{{ func.nome }}</td>
+                            <td>{{ func.cpf }}</td>
+                            <td>{{ func.telefone|default:"-" }}</td>
+                            <td>{{ func.cargo|default:"-" }}</td>
+                            <td>{{ func.cnh|default:"-" }}</td>
+                            <td>{{ func.validade_cnh|date:"d/m/Y"|default:"-" }}</td>
+                            <td><span class="badge_status-lista_funcionario status_inativo-lista_funcionario">{{ func.status.nome|title }}</span></td>
+                            <td>
+                                <div class="container_botoes-lista_funcionario">
+                                    <a href="{% url 'editar_funcionario' func.id %}" class="link_acao-lista_funcionario"><button type="button" class="btn_editar-lista_funcionario">Editar</button></a>
+                                    <form action="{% url 'excluir_funcionario' func.id %}" method="POST" class="form_excluir-lista_funcionario" data-confirm-exclusao>
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn_excluir-lista_funcionario">Excluir</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="aviso_vazio-lista_funcionario">Nenhum funcionário com status neutro.</div>
+    {% endif %}
+
+    <!-- TABELA 3: OUTROS STATUS -->
+    {% if outros %}
+        <br><hr class="divisor-lista_funcionario"><br>
+        <h3 class="subtitulo_outros-lista_funcionario">Outros Funcionários</h3>
+        <div class="wrapper_tabela-lista_funcionario">
+            <table class="tabela_frota-lista_funcionario">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Telefone</th>
+                        <th>Cargo</th>
+                        <th>CNH</th>
+                        <th>Validade CNH</th>
+                        <th>Status</th>
+                        <th class="coluna_acoes-lista_funcionario">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for func in outros %}
+                        <tr class="{% cycle 'linha_branca-lista_funcionario' 'linha_cinza-lista_funcionario' %}">
+                            <td class="texto_negrito-lista_funcionario">{{ func.nome }}</td>
+                            <td>{{ func.cpf }}</td>
+                            <td>{{ func.telefone|default:"-" }}</td>
+                            <td>{{ func.cargo|default:"-" }}</td>
+                            <td>{{ func.cnh|default:"-" }}</td>
+                            <td>{{ func.validade_cnh|date:"d/m/Y"|default:"-" }}</td>
+                            <td><span class="badge_status-lista_funcionario">{{ func.status.nome|default:"Sem Status"|title }}</span></td>
+                            <td>
+                                <div class="container_botoes-lista_funcionario">
+                                    <a href="{% url 'editar_funcionario' func.id %}" class="link_acao-lista_funcionario"><button type="button" class="btn_editar-lista_funcionario">Editar</button></a>
+                                    <form action="{% url 'excluir_funcionario' func.id %}" method="POST" class="form_excluir-lista_funcionario" data-confirm-exclusao>
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn_excluir-lista_funcionario">Excluir</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% endif %}
+
+    <br><br>
+    <a href="{% url 'home' %}" class="link_voltar_home-lista_funcionario">← Voltar ao Início</a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=11.0"></script>
+{% endblock %}

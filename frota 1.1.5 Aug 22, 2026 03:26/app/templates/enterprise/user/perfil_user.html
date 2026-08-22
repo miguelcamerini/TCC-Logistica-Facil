@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Meu Perfil - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=4.0">
+{% endblock %}
+
+{% block content %}
+<div class="perfil_container-content">
+    
+    <div class="perfil_cabecalho-content">
+        <h2 class="perfil_titulo-content">Perfil do Usuário</h2>
+        <div class="perfil_acoes-content">
+            <a href="{% url 'edit_user' %}" class="perfil_link_acao-content">
+                <button type="button" class="btn-editar">Editar Perfil</button>
+            </a>
+            <a href="{% url 'alterar_senha_user' %}" class="perfil_link_acao-content">
+                <button type="button" class="btn-senha">Alterar Senha</button>
+            </a>
+        </div>
+    </div>
+
+    {% if messages %}
+        <div class="container_mensagens-content">
+            {% for message in messages %}
+                <div class="mensagem_sucesso-content">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <hr class="perfil_divisor-content">
+
+    <!-- RESUMO DO USUÁRIO -->
+    <div class="cards-resumo">
+        <div class="card">
+            <h4>Veículos</h4>
+            <p>{{ total_veiculos }}</p>
+        </div>
+        <div class="card">
+            <h4>Funcionários</h4>
+            <p>{{ total_funcionarios }}</p>
+        </div>
+        <div class="card">
+            <h4>Viagens Ativas</h4>
+            <p>{{ total_viagens_ativas }}</p>
+        </div>
+    </div>
+
+    <!-- DADOS DO CADASTRO -->
+    <h3 class="perfil_subtitulo-content">Informações Pessoais</h3>
+    <table class="tabela-detalhes">
+        <tr>
+            <th>Nome de Usuário (Login):</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>Nome Completo:</th>
+            <td>{{ user.get_full_name|default:"Não informado" }}</td>
+        </tr>
+        <tr>
+            <th>E-mail:</th>
+            <td>{{ user.email|default:"Não informado" }}</td>
+        </tr>
+        <tr>
+            <th>Membro desde:</th>
+            <td>{{ user.date_joined|date:"d/m/Y H:i" }}</td>
+        </tr>
+        <tr>
+            <th>Último login:</th>
+            <td>{{ user.last_login|date:"d/m/Y H:i" }}</td>
+        </tr>
+    </table>
+
+    <div class="perfil_rodape_link-content">
+        <a href="{% url 'home' %}" class="link_voltar_home-content">← Voltar ao Início</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=4.0"></script>
+{% endblock %}
