@@ -1,0 +1,7 @@
+Tela aastecida e lapidacao
+
+OU de login removido, botao apagar conta tela abastecidas com ligacao em viagens e caixa
+
+Proximos passos formatar e printar codigo e adicionar filtro de veiculo em viagens
+
+

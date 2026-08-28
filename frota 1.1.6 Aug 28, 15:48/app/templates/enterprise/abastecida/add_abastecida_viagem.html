@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Abastecer Viagem - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=80.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_formulario-entrada_caixa">
+    <h2 class="titulo_pagina-entrada_caixa titulo_form_abastecer_viagem">+ Abastecimento de Viagem</h2>
+    <p class="subtitulo_pagina-entrada_caixa">Selecione a viagem ativa. O veículo e motorista serão preenchidos e os litros somados na viagem.</p>
+    <hr class="divisor_pagina-entrada_caixa"><br>
+
+    {% if form.non_field_errors %}
+        <div class="alerta_erro_global-entrada_caixa">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="POST" class="formulario_padrao-entrada_caixa" novalidate>
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="grupo_campo-entrada_caixa">
+                <label class="rotulo_campo-entrada_caixa" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <span class="erro_campo-entrada_caixa">{{ field.errors.0 }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <br>
+        <div class="container_botoes_form-entrada_caixa">
+            <a href="{% url 'lista_abastecida' %}" class="link_cancelar-entrada_caixa">
+                <button type="button" class="btn_cancelar-entrada_caixa">Cancelar</button>
+            </a>
+            <button type="submit" class="btn_salvar-entrada_caixa btn_salvar_abastecer_viagem">Salvar no Caixa e na Viagem</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

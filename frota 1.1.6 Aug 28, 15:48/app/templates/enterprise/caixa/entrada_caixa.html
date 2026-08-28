@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{% if editando %}Editar Entrada{% else %}Nova Entrada Externa{% endif %} - Caixa{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=15.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_formulario-entrada_caixa">
+    <h2 class="titulo_pagina-entrada_caixa">
+        {% if editando %}Editar Entrada Externa{% else %}+ Adicionar Entrada Externa{% endif %}
+    </h2>
+    <p class="subtitulo_pagina-entrada_caixa">Registre aportes, reembolsos ou receitas extras que somam ao seu saldo em conta.</p>
+    
+    <hr class="divisor_pagina-entrada_caixa"><br>
+
+    {% if form.non_field_errors %}
+        <div class="alerta_erro_global-entrada_caixa">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="POST" class="formulario_padrao-entrada_caixa" id="form-entrada_caixa" novalidate>
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="grupo_campo-entrada_caixa">
+                <label class="rotulo_campo-entrada_caixa" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <span class="erro_campo-entrada_caixa">{{ field.errors.0 }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <br>
+        <div class="container_botoes_form-entrada_caixa">
+            <a href="{% url 'lista_caixa' %}" class="link_cancelar-entrada_caixa">
+                <button type="button" class="btn_cancelar-entrada_caixa">Cancelar</button>
+            </a>
+            <button type="submit" class="btn_salvar-entrada_caixa" id="btn_salvar-entrada_caixa">
+                {% if editando %}Atualizar Entrada{% else %}Salvar Entrada (+){% endif %}
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=15.0"></script>
+{% endblock %}

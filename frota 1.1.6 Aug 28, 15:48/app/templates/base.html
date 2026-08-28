@@ -1,0 +1,94 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Logística Fácil{% endblock %}</title>
+
+    <!-- CSS Global -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Bloco para CSS exclusivo de cada página -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body class="corpo-base">
+
+    <!-- CABEÇALHO SUPERIOR GLOBAL -->
+    <header class="cabecalho-base">
+        <div class="container_cabecalho-base">
+            <div class="marca_cabecalho-base">
+                <a href="{% if request.user.is_authenticated %}{% url 'home' %}{% else %}{% url 'login' %}{% endif %}" class="link_logo-base">
+                    <img src="{% static 'img/logo_caminhao.png' %}" alt="Logo Logística Fácil" class="img_logo-base">
+                    <div class="texto_marca-base">
+                        <span class="titulo_sistema-base">Logística Fácil</span>
+                        <span class="subtitulo_sistema-base">Gestão de Frota e Lançamentos</span>
+                    </div>
+                </a>
+            </div>
+
+            {% if request.user.is_authenticated %}
+                <!-- BOTÃO HAMBÚRGUER MOBILE -->
+                <button type="button" class="btn_menu_mobile-base" id="btnMenuMobileBase" aria-label="Abrir Menu">
+                    <span class="icone_hamburguer-base"></span>
+                </button>
+
+                <!-- NAVEGAÇÃO COMPLETA -->
+                <nav class="navegacao-base" id="navegacaoBase">
+                    <div class="links_navegacao-base">
+                        <a href="{% url 'home' %}" class="item_link-base">Painel</a>
+                        <a href="{% url 'lista_veiculos' %}" class="item_link-base">Veículos</a>
+                        <a href="{% url 'lista_funcionario' %}" class="item_link-base">Funcionários</a>
+                        <a href="{% url 'lista_abastecida' %}" class="item_link-base">Abastecimentos</a>
+                        <a href="{% url 'lista_viagem' %}" class="item_link-base">Viagens</a>
+                        <a href="{% url 'lista_caixa' %}" class="item_link-base">Caixa</a>
+                    </div>
+
+                    <!-- LINK DIRETO PARA O PERFIL DO USUÁRIO -->
+                    <div class="usuario_info-base">
+                        <a href="{% url 'perfil_user' %}" class="link_perfil_usuario-base" title="Acessar Perfil">
+                            👤 {{ request.user.username }}
+                        </a>
+                        <a href="{% url 'logout' %}" class="btn_sair-base">Sair</a>
+                    </div>
+                </nav>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- CONTEÚDO DA PÁGINA -->
+    <main class="conteudo_principal-base">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- RODAPÉ ESCURO GLOBAL -->
+    <footer class="rodape-base">
+        <div class="container_rodape-base">
+            <div class="coluna_rodape-base">
+                <h4 class="titulo_coluna-base">Logística Fácil</h4>
+                <p class="texto_coluna-base">Sistema completo de gerenciamento de frotas, motoristas, controle financeiro e fluxo de viagens.</p>
+            </div>
+
+            <div class="coluna_rodape-base">
+                <h4 class="titulo_coluna-base">Suporte & Contato</h4>
+                <p class="item_contato-base"><strong>Atendimento:</strong> Seg. a Sex. das 08h às 18h</p>
+                <p class="item_contato-base"><strong>E-mail:</strong> suporte@logisticafacil.com.br</p>
+            </div>
+
+            <div class="coluna_rodape-base">
+                <h4 class="titulo_coluna-base">Versão do Sistema</h4>
+                <p class="texto_coluna-base">Versão 1.1.3 - TCC</p>
+                <p class="texto_coluna-base">Desenvolvido para alta performance e praticidade.</p>
+            </div>
+        </div>
+
+        <div class="copia_direitos-base">
+            &copy; {% now "Y" %} Logística Fácil. Todos os direitos reservados.
+        </div>
+    </footer>
+
+    <!-- CARREGAMENTO DOS SCRIPTS -->
+    <script src="{% static 'js/main.js' %}"></script>
+    {% block extra_js %}{% endblock %}
+</body>
+</html>

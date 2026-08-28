@@ -1,0 +1,178 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editar Viagem - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=120.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_formulario-editar_viagem">
+    <h2 class="titulo_pagina-editar_viagem">Editando Viagem ({{ viagem.contratante }})</h2>
+    <p class="subtitulo_pagina-editar_viagem">Atualize as informações operacionais, rotas e quitações financeiras.</p>
+    <hr class="divisor_pagina-editar_viagem"><br>
+
+    {% if form.non_field_errors %}
+        <div class="alerta_erro_global-editar_viagem">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="POST" class="formulario_padrao-editar_viagem" id="form-editar_viagem" novalidate>
+        {% csrf_token %}
+
+        <!-- SEÇÃO 1: DADOS OPERACIONAIS E DOCUMENTOS -->
+        <h3 class="subtitulo_secao_form">1. Dados Operacionais e Documentos</h3>
+        <div class="grid_formulario-editar_viagem">
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.contratante.id_for_label }}">{{ form.contratante.label }}</label>
+                {{ form.contratante }}
+                {% if form.contratante.errors %}<span class="erro_campo-editar_viagem">{{ form.contratante.errors.0 }}</span>{% endif %}
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.status_da_viagem.id_for_label }}">{{ form.status_da_viagem.label }}</label>
+                {{ form.status_da_viagem }}
+                {% if form.status_da_viagem.errors %}<span class="erro_campo-editar_viagem">{{ form.status_da_viagem.errors.0 }}</span>{% endif %}
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.carga.id_for_label }}">{{ form.carga.label }}</label>
+                {{ form.carga }}
+                {% if form.carga.errors %}<span class="erro_campo-editar_viagem">{{ form.carga.errors.0 }}</span>{% endif %}
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.mic.id_for_label }}">{{ form.mic.label }}</label>
+                {{ form.mic }}
+                {% if form.mic.errors %}<span class="erro_campo-editar_viagem">{{ form.mic.errors.0 }}</span>{% endif %}
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.nota_fiscal.id_for_label }}">{{ form.nota_fiscal.label }}</label>
+                {{ form.nota_fiscal }}
+                {% if form.nota_fiscal.errors %}<span class="erro_campo-editar_viagem">{{ form.nota_fiscal.errors.0 }}</span>{% endif %}
+            </div>
+        </div>
+
+        <br><hr class="divisor_secao_form"><br>
+
+        <!-- SEÇÃO 2: ROTA E VEÍCULOS -->
+        <h3 class="subtitulo_secao_form">2. Rota, Equipe e Veículos</h3>
+        <div class="grid_formulario-editar_viagem">
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.local_inicio.id_for_label }}">{{ form.local_inicio.label }}</label>
+                {{ form.local_inicio }}
+                {% if form.local_inicio.errors %}<span class="erro_campo-editar_viagem">{{ form.local_inicio.errors.0 }}</span>{% endif %}
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.local_final.id_for_label }}">{{ form.local_final.label }}</label>
+                {{ form.local_final }}
+                {% if form.local_final.errors %}<span class="erro_campo-editar_viagem">{{ form.local_final.errors.0 }}</span>{% endif %}
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.data_inicio.id_for_label }}">{{ form.data_inicio.label }}</label>
+                {{ form.data_inicio }}
+                {% if form.data_inicio.errors %}<span class="erro_campo-editar_viagem">{{ form.data_inicio.errors.0 }}</span>{% endif %}
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.data_final.id_for_label }}">{{ form.data_final.label }}</label>
+                {{ form.data_final }}
+                {% if form.data_final.errors %}<span class="erro_campo-editar_viagem">{{ form.data_final.errors.0 }}</span>{% endif %}
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.motorista.id_for_label }}">{{ form.motorista.label }}</label>
+                {{ form.motorista }}
+                {% if form.motorista.errors %}<span class="erro_campo-editar_viagem">{{ form.motorista.errors.0 }}</span>{% endif %}
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.veiculo_1.id_for_label }}">{{ form.veiculo_1.label }}</label>
+                {{ form.veiculo_1 }}
+                {% if form.veiculo_1.errors %}<span class="erro_campo-editar_viagem">{{ form.veiculo_1.errors.0 }}</span>{% endif %}
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.reboque.id_for_label }}">{{ form.reboque.label }}</label>
+                {{ form.reboque }}
+                {% if form.reboque.errors %}<span class="erro_campo-editar_viagem">{{ form.reboque.errors.0 }}</span>{% endif %}
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.km_rodados.id_for_label }}">{{ form.km_rodados.label }}</label>
+                {{ form.km_rodados }}
+                {% if form.km_rodados.errors %}<span class="erro_campo-editar_viagem">{{ form.km_rodados.errors.0 }}</span>{% endif %}
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem">Total Abastecido nesta Viagem</label>
+                <input type="text" value="{{ total_litros }} Litros" readonly disabled class="campo_somente_leitura">
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.media.id_for_label }}">{{ form.media.label }}</label>
+                {{ form.media }}
+                {% if form.media.errors %}<span class="erro_campo-editar_viagem">{{ form.media.errors.0 }}</span>{% endif %}
+            </div>
+        </div>
+
+        <br><hr class="divisor_secao_form"><br>
+
+        <!-- SEÇÃO 3: FINANCEIRO (ADIANTAMENTO E QUITAÇÃO LADO A LADO) -->
+        <h3 class="subtitulo_secao_form">3. Valores Financeiros e Recebimentos</h3>
+        <div class="grid_formulario-editar_viagem">
+            <!-- BLOCO ADIANTAMENTO -->
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.valor_adiantamento.id_for_label }}">{{ form.valor_adiantamento.label }}</label>
+                {{ form.valor_adiantamento }}
+                {% if form.valor_adiantamento.errors %}<span class="erro_campo-editar_viagem">{{ form.valor_adiantamento.errors.0 }}</span>{% endif %}
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.data_adiantamento.id_for_label }}">{{ form.data_adiantamento.label }}</label>
+                {{ form.data_adiantamento }}
+                {% if form.data_adiantamento.errors %}<span class="erro_campo-editar_viagem">{{ form.data_adiantamento.errors.0 }}</span>{% endif %}
+            </div>
+
+            <!-- BLOCO QUITAÇÃO -->
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.valor_quitacao.id_for_label }}">{{ form.valor_quitacao.label }}</label>
+                {{ form.valor_quitacao }}
+                {% if form.valor_quitacao.errors %}<span class="erro_campo-editar_viagem">{{ form.valor_quitacao.errors.0 }}</span>{% endif %}
+            </div>
+
+            <div class="grupo_campo-editar_viagem">
+                <label class="rotulo_campo-editar_viagem" for="{{ form.data_quitacao.id_for_label }}">{{ form.data_quitacao.label }}</label>
+                {{ form.data_quitacao }}
+                {% if form.data_quitacao.errors %}<span class="erro_campo-editar_viagem">{{ form.data_quitacao.errors.0 }}</span>{% endif %}
+            </div>
+        </div>
+
+        <br><hr class="divisor_secao_form"><br>
+
+        <!-- SEÇÃO 4: OBSERVAÇÕES -->
+        <div class="grupo_campo-editar_viagem campo_largura_total-editar_viagem">
+            <label class="rotulo_campo-editar_viagem" for="{{ form.descricao.id_for_label }}">{{ form.descricao.label }}</label>
+            {{ form.descricao }}
+            {% if form.descricao.errors %}<span class="erro_campo-editar_viagem">{{ form.descricao.errors.0 }}</span>{% endif %}
+        </div>
+
+        <br>
+        <div class="container_botoes_form-editar_viagem">
+            <a href="{% url 'lista_viagem' %}" class="link_cancelar-editar_viagem">
+                <button type="button" class="btn_cancelar-editar_viagem">Cancelar</button>
+            </a>
+            <button type="submit" class="btn_salvar-editar_viagem" id="btn_salvar-editar_viagem">Salvar Alterações</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=120.0"></script>
+{% endblock %}
