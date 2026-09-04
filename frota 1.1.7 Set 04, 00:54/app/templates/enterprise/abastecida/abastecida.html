@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Controle de Abastecimentos - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=80.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_principal-lista_abastecida">
+    
+    <div class="cabecalho_pagina-lista_abastecida">
+        <h2 class="titulo_pagina-lista_abastecida">Controle de Abastecimentos</h2>
+        <div class="container_acoes_cabecalho-lista_abastecida">
+            <a href="{% url 'add_abastecida_viagem' %}" class="link_novo-lista_caixa">
+                <button type="button" class="btn_abastecer_viagem-lista_abastecida">
+                    + Abastecimento de Viagem
+                </button>
+            </a>
+            <a href="{% url 'add_abastecida' %}" class="link_novo-lista_caixa">
+                <button type="button" class="btn_abastecer_comum-lista_abastecida">
+                    + Abastecimento Comum
+                </button>
+            </a>
+        </div>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alerta_sucesso-lista_caixa">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <hr class="divisor-lista_caixa"><br>
+
+    <!-- BARRA DE FILTROS -->
+    <form method="GET" class="container_filtro-lista_caixa">
+        <div class="grupo_filtro-lista_caixa">
+            <label>Data Inicial:</label>
+            <input type="date" name="data_inicio" value="{{ data_inicio }}">
+        </div>
+        <div class="grupo_filtro-lista_caixa">
+            <label>Data Final:</label>
+            <input type="date" name="data_fim" value="{{ data_fim }}">
+        </div>
+        <div class="grupo_filtro-lista_caixa">
+            <label>Veículo:</label>
+            <select name="veiculo">
+                <option value="">-- Todos os Veículos --</option>
+                {% for v in veiculos_usuario %}
+                    <option value="{{ v.id }}" {% if veiculo_selecionado == v.id %}selected{% endif %}>
+                        {{ v.nome_fantasia }} ({{ v.placa }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="botoes_filtro-lista_caixa">
+            <button type="submit" class="btn_filtrar-lista_caixa">Filtrar</button>
+            {% if data_inicio or data_fim or veiculo_selecionado %}
+                <a href="{% url 'lista_abastecida' %}" class="btn_limpar-lista_caixa">Limpar</a>
+            {% endif %}
+        </div>
+    </form>
+
+    <br>
+
+    <!-- CARDS DE INDICADORES -->
+    <div class="cards_resumo-lista_abastecida">
+        <div class="card_indicador-lista_abastecida card_indicador_litros-lista_abastecida">
+            <h4>Total Litros Abastecidos</h4>
+            <p>{{ total_litros }} L</p>
+        </div>
+        <div class="card_indicador-lista_abastecida card_indicador_valor-lista_abastecida">
+            <h4>Total Gasto em Combustível</h4>
+            <p>R$ {{ total_valor }}</p>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- TABELA -->
+    <h3 class="subtitulo_tabela-lista_caixa">Histórico de Abastecimentos</h3>
+    {% if abastecimentos %}
+        <div class="wrapper_tabela-lista_caixa">
+            <table class="tabela_frota-lista_caixa">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Veículo</th>
+                        <th>Motorista</th>
+                        <th>Nota Fiscal</th>
+                        <th>Viagem Vinculada</th>
+                        <th>Litros</th>
+                        <th>Valor Total</th>
+                        <th class="coluna_acoes-lista_caixa">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for a in abastecimentos %}
+                        <tr class="{% cycle 'linha_branca-lista_caixa' 'linha_cinza-lista_caixa' %}">
+                            <td class="texto_negrito-lista_caixa">{{ a.data_abastecida|date:"d/m/Y" }}</td>
+                            <td><span class="badge_veiculo-lista_abastecida">{{ a.veiculo }}</span></td>
+                            <td>{{ a.motorista_responsavel.nome }}</td>
+
+                            <!-- COLUNA NOTA FISCAL -->
+                            <td>
+                                {% if a.nota_fiscal %}
+                                    <span class="badge_viagem_ativa-lista_abastecida">NF: {{ a.nota_fiscal }}</span>
+                                {% else %}
+                                    <span class="badge_viagem_avulso-lista_abastecida">Sem NF</span>
+                                {% endif %}
+                            </td>
+
+                            <!-- COLUNA VIAGEM (ROTA RECONHECÍVEL AO INVÉS DE APENAS O NÚMERO) -->
+                            <td>
+                                {% if a.viagem %}
+                                    <span class="badge_viagem_ativa-lista_abastecida">
+                                        {{ a.viagem.local_inicio }} ➔ {{ a.viagem.local_final }}
+                                    </span>
+                                {% else %}
+                                    <span class="badge_viagem_avulso-lista_abastecida">Fora de Viagem</span>
+                                {% endif %}
+                            </td>
+
+                            <td class="texto_negrito-lista_caixa valor_azul-lista_caixa">{{ a.litros }} L</td>
+                            <td class="texto_negrito-lista_caixa valor_vermelho-lista_caixa">R$ {{ a.valor_abastecida }}</td>
+                            <td>
+                                <div class="container_botoes-lista_caixa">
+                                    <a href="{% url 'edit_abastecida' a.id %}" class="link_acao-lista_caixa">
+                                        <button type="button" class="btn_editar-lista_caixa">Editar</button>
+                                    </a>
+                                    <form action="{% url 'excluir_abastecida' a.id %}" method="POST" class="form_excluir-lista_caixa">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn_excluir-lista_caixa">Excluir</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="aviso_vazio-lista_caixa">Nenhum abastecimento encontrado para os filtros selecionados.</div>
+    {% endif %}
+
+    <br><br>
+    <a href="{% url 'home' %}" class="link_voltar_home-lista_caixa">← Voltar ao Início</a>
+</div>
+{% endblock %}

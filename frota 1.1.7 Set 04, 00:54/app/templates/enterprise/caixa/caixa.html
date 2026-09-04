@@ -1,0 +1,163 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Fluxo de Caixa - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=15.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_principal-lista_caixa">
+    
+    <!-- CABEÇALHO E BOTÕES DE AÇÃO -->
+    <div class="cabecalho_pagina-lista_caixa">
+        <h2 class="titulo_pagina-lista_caixa">Fluxo de Caixa / Financeiro</h2>
+        <div class="container_acoes_cabecalho-lista_caixa">
+            <a href="{% url 'add_despesa_caixa' %}" class="link_novo-lista_caixa">
+                <button type="button" class="btn_novo_gasto-lista_caixa">
+                    - Adicionar Despesa
+                </button>
+            </a>
+            <a href="{% url 'add_entrada_caixa' %}" class="link_novo-lista_caixa">
+                <button type="button" class="btn_nova_entrada-lista_caixa">
+                    + Adicionar Entrada Externa
+                </button>
+            </a>
+        </div>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alerta_sucesso-lista_caixa alerta_{{ message.tags }}-lista_caixa">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <hr class="divisor-lista_caixa"><br>
+
+    <!-- BARRA DE FILTROS (DATA + VEÍCULO) -->
+    <form method="GET" class="container_filtro-lista_caixa">
+        <div class="grupo_filtro-lista_caixa">
+            <label>Data Inicial:</label>
+            <input type="date" name="data_inicio" value="{{ data_inicio }}">
+        </div>
+        <div class="grupo_filtro-lista_caixa">
+            <label>Data Final:</label>
+            <input type="date" name="data_fim" value="{{ data_fim }}">
+        </div>
+        <div class="grupo_filtro-lista_caixa">
+            <label>Veículo / Centro de Custo:</label>
+            <select name="veiculo">
+                <option value="">-- Todos os Veículos --</option>
+                {% for v in veiculos_usuario %}
+                    <option value="{{ v.id }}" {% if veiculo_selecionado == v.id %}selected{% endif %}>
+                        {{ v.nome_fantasia }} ({{ v.placa }})
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="botoes_filtro-lista_caixa">
+            <button type="submit" class="btn_filtrar-lista_caixa">Filtrar</button>
+            {% if data_inicio or data_fim or veiculo_selecionado %}
+                <a href="{% url 'lista_caixa' %}" class="btn_limpar-lista_caixa">Limpar</a>
+            {% endif %}
+        </div>
+    </form>
+
+    <br>
+
+    <!-- CARDS DE RESUMO FINANCEIRO -->
+    <div class="cards_resumo-lista_caixa">
+        <div class="card_financeiro-lista_caixa card_entradas-lista_caixa">
+            <h4>Total Entradas (Fretes/Receitas)</h4>
+            <p>+ R$ {{ total_entradas|floatformat:2 }}</p>
+        </div>
+        <div class="card_financeiro-lista_caixa card_saidas-lista_caixa">
+            <h4>Total Saídas (Despesas/Gastos)</h4>
+            <p>- R$ {{ total_saidas|floatformat:2 }}</p>
+        </div>
+        <div class="card_financeiro-lista_caixa card_saldo-lista_caixa">
+            <h4>Valor em Conta (Saldo Líquido)</h4>
+            <p class="{% if saldo_conta < 0 %}valor_vermelho-lista_caixa{% else %}valor_azul-lista_caixa{% endif %}">
+                R$ {{ saldo_conta|floatformat:2 }}
+            </p>
+        </div>
+    </div>
+
+    <br>
+
+    <!-- TABELA DE LANÇAMENTOS DO CAIXA -->
+    <h3 class="subtitulo_tabela-lista_caixa">Lançamentos do Caixa</h3>
+    {% if gastos %}
+        <div class="wrapper_tabela-lista_caixa">
+            <table class="tabela_frota-lista_caixa">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Tipo</th>
+                        <th>Veículo</th>
+                        <th>MIC</th>
+                        <th>NF</th>
+                        <th>Descrição</th>
+                        <th>Valor (R$)</th>
+                        <th class="coluna_acoes-lista_caixa">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for gasto in gastos %}
+                        <tr class="{% cycle 'linha_branca-lista_caixa' 'linha_cinza-lista_caixa' %}">
+                            <td class="texto_negrito-lista_caixa">{{ gasto.data|date:"d/m/Y" }}</td>
+                            <td>
+                                {% if gasto.tipo == 'despesa' %}
+                                    <span class="badge_tipo-lista_caixa badge_despesa-lista_caixa">Gasto</span>
+                                {% elif gasto.tipo == 'adiantamento' %}
+                                    <span class="badge_tipo-lista_caixa badge_adiantamento-lista_caixa">Adiantamento</span>
+                                {% elif gasto.tipo == 'quitacao' %}
+                                    <span class="badge_tipo-lista_caixa badge_quitacao-lista_caixa">Quitação</span>
+                                {% else %}
+                                    <span class="badge_tipo-lista_caixa badge_receita-lista_caixa">Entrada Extra</span>
+                                {% endif %}
+                            </td>
+                            <td><span class="badge_centro-lista_caixa">{{ gasto.centro_de_custo }}</span></td>
+                            <td class="texto_negrito-lista_caixa">{{ gasto.mic_exibicao }}</td>
+                            <td class="texto_negrito-lista_caixa">{{ gasto.nota_fiscal_exibicao }}</td>
+                            <td>{{ gasto.descricao }}</td>
+                            
+                            <td class="texto_negrito-lista_caixa valor_coluna-lista_caixa">
+                                {% if gasto.tipo == 'despesa' %}
+                                    <span class="valor_vermelho-lista_caixa">- R$ {{ gasto.valor_saida }}</span>
+                                {% else %}
+                                    <span class="valor_verde-lista_caixa">+ R$ {{ gasto.valor_entrada }}</span>
+                                {% endif %}
+                            </td>
+                            
+                            <td>
+                                <div class="container_botoes-lista_caixa">
+                                    <a href="{% url 'edit_caixa' gasto.id %}" class="link_acao-lista_caixa">
+                                        <button type="button" class="btn_editar-lista_caixa">Editar</button>
+                                    </a>
+                                    <form action="{% url 'excluir_caixa' gasto.id %}" method="POST" class="form_excluir-lista_caixa" data-confirm-exclusao>
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn_excluir-lista_caixa">Excluir</button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    {% else %}
+        <div class="aviso_vazio-lista_caixa">Nenhum lançamento encontrado para os filtros selecionados.</div>
+    {% endif %}
+
+    <br><br>
+    <a href="{% url 'home' %}" class="link_voltar_home-lista_caixa">← Voltar ao Início</a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=15.0"></script>
+{% endblock %}

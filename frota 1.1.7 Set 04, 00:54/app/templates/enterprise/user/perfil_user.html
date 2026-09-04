@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Meu Perfil - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=100.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_principal-perfil_user">
+
+    <div class="cabecalho_pagina-perfil_user">
+        <h2 class="titulo_pagina-perfil_user">Perfil do Usuário</h2>
+        <p class="subtitulo_pagina-perfil_user">Informações de cadastro e estatísticas da sua frota.</p>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alerta_sucesso-lista_caixa">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <hr class="divisor-lista_caixa"><br>
+
+    <!-- CARDS DE RESUMO -->
+    <div class="cards_resumo-perfil_user">
+        <div class="card_indicador-perfil_user">
+            <h4>Veículos</h4>
+            <p>{{ total_veiculos }}</p>
+        </div>
+        <div class="card_indicador-perfil_user">
+            <h4>Funcionários</h4>
+            <p>{{ total_funcionarios }}</p>
+        </div>
+        <div class="card_indicador-perfil_user">
+            <h4>Viagens Ativas</h4>
+            <p>{{ total_viagens_ativas }}</p>
+        </div>
+    </div>
+
+    <!-- TABELA COM DADOS DO USUÁRIO -->
+    <table class="tabela_detalhes-perfil_user">
+        <tbody>
+            <tr>
+                <th>Usuário:</th>
+                <td>{{ user.username }}</td>
+            </tr>
+            <tr>
+                <th>Nome Completo:</th>
+                <td>{{ user.get_full_name|default:"Não informado" }}</td>
+            </tr>
+            <tr>
+                <th>E-mail:</th>
+                <td>{{ user.email|default:"Não informado" }}</td>
+            </tr>
+            <tr>
+                <th>Data de Cadastro:</th>
+                <td>{{ user.date_joined|date:"d/m/Y H:i" }}</td>
+            </tr>
+            <tr>
+                <th>Último Acesso:</th>
+                <td>{{ user.last_login|date:"d/m/Y H:i" }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- GRUPO DE BOTOES DE AÇÃO -->
+    <div class="container_acoes_perfil-user">
+        <a href="{% url 'edit_user' %}" class="link_acao_perfil-user">
+            <button type="button" class="btn_editar_usuario-user">
+                Editar Usuário
+            </button>
+        </a>
+        
+        <a href="{% url 'alterar_senha_user' %}" class="link_acao_perfil-user">
+            <button type="button" class="btn_editar_senha-user">
+                Editar Senha
+            </button>
+        </a>
+
+        <a href="{% url 'excluir_conta_user' %}" class="link_acao_perfil-user">
+            <button type="button" class="btn_solicitar_exclusao-user">
+                Excluir Minha Conta
+            </button>
+        </a>
+    </div>
+
+    <br>
+    <a href="{% url 'home' %}" class="link_voltar_home-lista_caixa">← Voltar ao Início</a>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=100.0"></script>
+{% endblock %}
