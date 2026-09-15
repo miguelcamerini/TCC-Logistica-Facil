@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Acesso Restrito - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=3.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_auth_central-content">
+    <div class="card_auth-content card_erro-content">
+        
+        <!-- ÍCONE DE AVISO -->
+        <div class="icone_erro_lock-content">
+            🔒
+        </div>
+
+        <!-- CABEÇALHO DA MENSAGEM -->
+        <div class="cabecalho_auth-content">
+            <h1 class="titulo_auth-content titulo_erro-content">Acesso Restrito</h1>
+            <p class="subtitulo_auth-content">Você precisa estar conectado para acessar esta página.</p>
+        </div>
+
+        <!-- MENSAGEM DE EXPLICAÇÃO -->
+        <div class="caixa_mensagem_erro-content">
+            <p>Identificamos que você tentou acessar um link interno do sistema sem realizar o login prévio.</p>
+        </div>
+
+        <!-- BOTÃO PARA O LOGIN -->
+        <div class="rodape_auth-content" style="margin-top: 20px;">
+            <a href="{% url 'login' %}" class="btn_primario_auth-content btn_login_redireciona-content">
+                Ir para o Login
+            </a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

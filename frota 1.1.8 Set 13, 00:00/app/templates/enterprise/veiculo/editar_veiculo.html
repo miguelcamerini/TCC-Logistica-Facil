@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editando Veículo - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=12.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_formulario-editar_veiculo">
+    
+    <h2 class="titulo_pagina-editar_veiculo">Editando veículo {{ veiculo.nome_fantasia }}, placa {{ veiculo.placa }}</h2>
+    <p class="subtitulo_pagina-editar_veiculo">Placa atual: <strong>{{ veiculo.placa }}</strong></p>
+    
+    <hr class="divisor_pagina-editar_veiculo">
+    <br>
+
+    {% if form.non_field_errors %}
+        <div class="alerta_erro_global-editar_veiculo">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="POST" class="formulario_padrao-editar_veiculo" id="form-editar_veiculo" novalidate>
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="grupo_campo-editar_veiculo">
+                <label class="rotulo_campo-editar_veiculo" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                
+                {{ field }}
+                
+                {% if field.errors %}
+                    <span class="erro_campo-editar_veiculo">{{ field.errors.0 }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <br>
+        
+        <div class="container_botoes_form-editar_veiculo">
+            <a href="{% url 'lista_veiculos' %}" class="link_cancelar-editar_veiculo">
+                <button type="button" class="btn_cancelar-editar_veiculo">Cancelar</button>
+            </a>
+            <button type="submit" class="btn_salvar-editar_veiculo" id="btn_salvar-editar_veiculo">Salvar Alterações</button>
+        </div>
+    </form>
+
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=12.0"></script>
+{% endblock %}

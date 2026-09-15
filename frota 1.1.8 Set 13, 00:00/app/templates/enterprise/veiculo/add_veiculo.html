@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Adicionar Veículo - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=12.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_formulario-add_veiculo">
+    
+    <h2 class="titulo_pagina-add_veiculo">Cadastrar Novo Veículo</h2>
+    <p class="subtitulo_pagina-add_veiculo">
+        O veículo será vinculado automaticamente à sua conta (<strong>{{ user.username }}</strong>).
+    </p>
+    <hr class="divisor_pagina-add_veiculo">
+    <br>
+
+    {% if form.non_field_errors %}
+        <div class="alerta_erro_global-add_veiculo">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="POST" class="formulario_padrao-add_veiculo" id="form-add_veiculo" novalidate>
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="grupo_campo-add_veiculo">
+                <label class="rotulo_campo-add_veiculo" for="{{ field.id_for_label }}">
+                    {{ field.label }}:
+                </label>
+                
+                {{ field }}
+                
+                {% if field.errors %}
+                    <span class="erro_campo-add_veiculo">{{ field.errors.as_text }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+        
+        <br>
+        <button type="submit" class="btn_salvar-add_veiculo" id="btn_salvar-add_veiculo">
+            Salvar Veículo
+        </button>
+    </form>
+
+    <div class="container_cancelar-add_veiculo">
+        <a href="{% url 'lista_veiculos' %}" class="link_cancelar-add_veiculo">← Cancelar e Voltar</a>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=12.0"></script>
+{% endblock %}

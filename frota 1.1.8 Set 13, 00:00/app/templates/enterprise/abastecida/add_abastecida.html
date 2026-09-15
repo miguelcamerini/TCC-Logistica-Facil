@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Novo Abastecimento Comum - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=80.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_formulario-despesa_caixa">
+    <h2 class="titulo_pagina-despesa_caixa titulo_form_abastecer_comum">+ Abastecimento Comum (Fora de Viagem)</h2>
+    <p class="subtitulo_pagina-despesa_caixa">Informe o veículo, motorista e detalhes do abastecimento avulso.</p>
+    
+    <hr class="divisor_pagina-despesa_caixa"><br>
+
+    {% if form.non_field_errors %}
+        <div class="alerta_erro_global-despesa_caixa">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="POST" class="formulario_padrao-despesa_caixa" novalidate>
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="grupo_campo-despesa_caixa">
+                <label class="rotulo_campo-despesa_caixa" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <span class="erro_campo-despesa_caixa">{{ field.errors.0 }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <br>
+        <div class="container_botoes_form-despesa_caixa">
+            <a href="{% url 'lista_abastecida' %}" class="link_cancelar-despesa_caixa">
+                <button type="button" class="btn_cancelar-despesa_caixa">Cancelar</button>
+            </a>
+            <button type="submit" class="btn_salvar-despesa_caixa btn_salvar_abastecer_comum">Salvar Abastecimento</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

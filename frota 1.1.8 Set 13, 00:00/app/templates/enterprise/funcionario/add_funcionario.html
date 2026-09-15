@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Adicionar Funcionário - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=11.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_formulario-add_funcionario">
+    <h2 class="titulo_pagina-add_funcionario">Adicionar Novo Funcionário</h2>
+    <p class="subtitulo_pagina-add_funcionario">Preencha as informações do funcionário para cadastrá-lo na empresa.</p>
+    <hr class="divisor_pagina-add_funcionario">
+    <br>
+
+    {% if form.non_field_errors %}
+        <div class="alerta_erro_global-add_funcionario">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="POST" class="formulario_padrao-add_funcionario" id="form-add_funcionario" novalidate>
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="grupo_campo-add_funcionario">
+                <label class="rotulo_campo-add_funcionario" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <span class="erro_campo-add_funcionario">{{ field.errors.0 }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <br>
+        <div class="container_botoes_form-add_funcionario">
+            <a href="{% url 'lista_funcionario' %}" class="link_cancelar-add_funcionario">
+                <button type="button" class="btn_cancelar-add_funcionario">Cancelar</button>
+            </a>
+            <button type="submit" class="btn_salvar-add_funcionario" id="btn_salvar-add_funcionario">Adicionar Funcionário</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=11.0"></script>
+{% endblock %}

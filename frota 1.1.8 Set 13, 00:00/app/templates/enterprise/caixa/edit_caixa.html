@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Editar Lançamento - Caixa{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=15.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_formulario-edit_caixa">
+    <h2 class="titulo_pagina-edit_caixa">Editando Lançamento #{{ caixa.id }}</h2>
+    <p class="subtitulo_pagina-edit_caixa">Atualize os valores ou detalhes do lançamento financeiro.</p>
+    <hr class="divisor_pagina-edit_caixa"><br>
+
+    {% if form.non_field_errors %}
+        <div class="alerta_erro_global-edit_caixa">
+            {{ form.non_field_errors }}
+        </div>
+    {% endif %}
+
+    <form method="POST" class="formulario_padrao-edit_caixa" id="form-edit_caixa" novalidate>
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="grupo_campo-edit_caixa">
+                <label class="rotulo_campo-edit_caixa" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <span class="erro_campo-edit_caixa">{{ field.errors.0 }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <br>
+        <div class="container_botoes_form-edit_caixa">
+            <a href="{% url 'lista_caixa' %}" class="link_cancelar-edit_caixa">
+                <button type="button" class="btn_cancelar-edit_caixa">Cancelar</button>
+            </a>
+            <button type="submit" class="btn_salvar-edit_caixa" id="btn_salvar-edit_caixa">Salvar Alterações</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=15.0"></script>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Excluir Conta - Logística Fácil{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/content.css' %}?v=95.0">
+{% endblock %}
+
+{% block content %}
+<div class="container_formulario-despesa_caixa">
+    <h2 class="titulo_pagina-despesa_caixa titulo_perigo-excluir_conta">Excluir Conta Permanentemente</h2>
+    <p class="subtitulo_pagina-despesa_caixa">Esta ação é irreversível. Todos os seus veículos, viagens, caixa e abastecimentos serão apagados.</p>
+    
+    <hr class="divisor_pagina-despesa_caixa"><br>
+
+    <form method="POST" class="formulario_padrao-despesa_caixa" id="form-excluir_conta" novalidate>
+        {% csrf_token %}
+        
+        {% for field in form %}
+            <div class="grupo_campo-despesa_caixa">
+                <label class="rotulo_campo-despesa_caixa" for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                    <span class="erro_campo-despesa_caixa">{{ field.errors.0 }}</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+
+        <br>
+        <div class="container_botoes_form-despesa_caixa">
+            <a href="{% url 'perfil_user' %}" class="link_cancelar-despesa_caixa">
+                <button type="button" class="btn_cancelar-despesa_caixa">Cancelar</button>
+            </a>
+            <button type="submit" class="btn_excluir_definitivo-excluir_conta">Excluir Minha Conta</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/content.js' %}?v=95.0"></script>
+{% endblock %}
